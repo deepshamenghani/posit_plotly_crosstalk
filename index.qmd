@@ -1,0 +1,728 @@
+---
+title: "Data Viz Animation and Interactivity with Roy Kent"
+date: 09/21/2023
+author: Deepsha Menghani
+format: 
+  revealjs:
+    self-contained: false
+    slide-number: c/t
+    highlight-style: github
+    width: 1600
+    height: 900
+    logo: "Images/posit-logo-fullcolor-TM.png"
+    footer: "[https://bit.ly/deepsha](https://bit.ly/deepsha)"
+    theme: ["simple", "styles.scss"]
+    echo: false
+    multiplex: true
+    code-link: true
+    code-line-numbers: false
+    fig-cap-location: bottom
+    title-slide-attributes:
+      data-background-color: "#004E4F"
+editor: source
+---
+
+```{r}
+library(tidyverse)
+library(plotly)
+library(crosstalk)
+df_xls <- readxl::read_xlsx("./data/Ted_Lasso_RK_f_count.xlsx") |> 
+  mutate(Dating_Coaching_flag = case_when(
+    Dating_flag == "Yes" & Coaching_flag == "Yes" ~ "Dating & Coaching",
+    Dating_flag == "Yes" & Coaching_flag == "No" ~ "Dating",
+    Dating_flag == "No" & Coaching_flag == "Yes" ~ "Coaching",
+         .default = "Neither")) 
+```
+
+# What are we here to answer?
+
+## {auto-animate=true}
+
+<br>
+
+<br>
+
+<br>
+
+
+- Why should you use animation and interactivity in your data viz?
+
+## {auto-animate=true}
+
+<br>
+
+<br>
+
+<br>
+
+- When should you use it?
+- Why should you use animation and interactivity in your data viz?
+
+## {auto-animate=true}
+
+<br>
+
+<br>
+
+<br>
+
+- How can you build it yourself?
+- When should you use it?
+- Why should you use animation and interactivity in your data viz?
+
+## {auto-animate=true}
+
+<br>
+
+<br>
+
+<br>
+
+- And have fun learning with me, Ted Lasso and Roy Kent!!
+- How can you build it yourself?
+- When should you use it?
+- Why should you use animation and interactivity in your data viz?
+
+
+# But first.. What is Ted Lasso and who is Roy Kent?
+
+<br>
+
+![](Images/rk_tl.jpg){width="20%" fig-align="center"}
+
+# Various moods of Roy Kent
+
+<br>
+
+::: {layout="[[1,1,1,1], [1,1,1,1]]"}
+
+![Happy](Images/rk_wtf.jpg)
+
+![Sad](Images/rk_wtf.jpg)
+
+![Mad](Images/rk_wtf.jpg)
+
+![Amused](Images/rk_wtf.jpg)
+
+![Loving](Images/rk_wtf.jpg)
+
+![Surprised](Images/rk_wtf.jpg)
+
+![Thoughtful](Images/rk_wtf.jpg)
+
+![Joyous](Images/rk_wtf.jpg)
+
+:::
+
+# So, we are going to look at the number of F-bombs dropped by Roy Kent for our visualizations!
+
+
+# Animation {background-color="#004E4F"}
+
+# Let's start with a question...
+
+## Q1: What season did Roy Kent end up dropping the most number of F-bombs?
+
+## Q1: What season did Roy Kent end up dropping the most number of F-bombs?
+
+<br>
+
+:::: columns
+
+::: {.column width="35%"}
+
+
+- Season 1 - Episode 1: __2__
+
+<br>
+
+- Season 2 - Episode 1: __11__
+
+<br>
+
+- Season 3 - Episode 1: __6__
+
+:::
+
+
+::: {.column  width="65%"}
+
+
+```{r}
+
+library(tidyverse)
+library(plotly)
+library(crosstalk)
+
+df_xls |> 
+  complete(Season, Episode) |> 
+  fill(cum_rk_season, .direction = "down") |>
+  mutate(Season = str_glue("Season\n{Season}")) |>
+  mutate(Season = (fct_reorder(as.factor(Season), -cum_rk_season))) |> 
+  plot_ly(y=~Season, x = ~cum_rk_season, size = ~cum_rk_season) |> 
+  add_bars(frame = ~Episode, type="bar", ids = ~Season, color = ~Season) |>
+  animation_opts(frame = 800, transition = 300) |>
+  layout(title = "Cumulative F* bombs by Roy Kent each season",
+         xaxis = list(title = ""),
+         yaxis = list(title = "")) |>
+  hide_legend()
+```
+:::
+
+::::
+
+::: {.fragment}
+
+<br>
+
+___Season 3 ended with a total of 138 F-bombs___
+:::
+
+# By adding animation you hold the tension in your story
+
+## Code structure for creating animation using Plotly
+
+<br>
+
+### Simple bar plot
+
+```{.r echo=TRUE}
+
+dataset |> 
+  plot_ly(y=~count, x = ~season) |> 
+  add_bars(type="bar")
+  
+```
+
+<br>
+
+::: {.fragment}
+
+### Bar plot with animation
+
+```{.r echo=TRUE}
+
+dataset |> 
+  plot_ly(y=~count, x = ~season) |> 
+  add_bars(frame = ~Episode, type="bar")
+  
+```
+
+:::
+
+
+
+## Code structure for creating animation using Plotly
+
+<br>
+
+### Simple bar plot
+
+```{.r echo=TRUE}
+
+dataset |> 
+  plot_ly(y=~count, x = ~season) |> 
+  add_bars(type="bar") 
+  
+```
+
+<br>
+
+
+### Bar plot with animation
+
+```{.r echo=TRUE}
+
+dataset |> 
+  plot_ly(y=~count, x = ~season) |> 
+  add_bars(frame = ~Episode, type="bar") |> 
+  animation_opts(frame = 800, transition = 300)
+  
+```
+
+
+# Interactivity {background-color="#004E4F"}
+
+# Let's get technical and talk about statistics
+# Let's get technical and talk about statistics - "F-SCORE"
+
+# What is an episode's F-SCORE {text-align=center}
+
+<br>
+
+::: {.fragment}
+
+<br>
+
+$$
+f-score = {Roy Kent  Fbombs / \choose Total  Fbombs}
+$$
+:::
+
+
+## Q2: Which season has the most episodes with F-Score > 50%?
+
+<br>
+
+::: {.fragment}
+
+In non-statistical terms - In how many episodes per season did Roy Kent contribute to more than half the Fbombs? 
+
+<br>
+
+And...which season had the highest number of such episodes?
+
+:::
+
+<br>
+
+::: {.fragment}
+
+### Can you guess the answer?
+
+- Season 1 - Total Fbombs: __56__
+
+
+- Season 2 - Total Fbombs: __106__
+
+
+- Season 3 - Total Fbombs: __138__
+
+:::
+
+## We can display F-score for each episode as below
+
+::: {.fragment}
+
+```{r}
+p1 <- df_xls |> 
+plot_ly(x = ~Season_Episode, y = ~F_perc, text = ~Season_Episode,
+          width = 1200,
+          height = 800) |> 
+  add_bars(type="bar") |> 
+  layout(
+    xaxis = list(title = ""),
+    yaxis = list(title = ""),
+    title = "F-score by episode and season"
+  )
+
+
+bscols(widths = c(NA,10),"",p1)
+```
+:::
+
+## Or we can add a "season" checkbox to make it easier to read
+
+```{r}
+shared_data <- df_xls |> SharedData$new()
+
+p2 <- shared_data |> 
+  plot_ly(x = ~Season_Episode, y = ~F_perc, text = ~Season_Episode,
+          width = 1200,
+          height = 800) |> 
+  add_bars(type="bar") |> 
+  layout(
+    xaxis = list(title = ""),
+    yaxis = list(title = ""),
+    title = "F-score by episode and season"
+  )
+
+bscols(widths = c(NA,1,10),
+       " ",
+       filter_checkbox(
+        id = "Season", label = "Season", 
+        sharedData = shared_data,
+        group = ~Season
+), p2)
+
+```
+
+# Through interactivity you can add layers and control the ease of how the insight is derived
+
+## Code structure for adding interativity with Crosstalk
+
+<br>
+
+### Simple bar plot
+
+```{.r echo=TRUE}
+dataset |> 
+  plot_ly(y=~F_score, x = ~episode) |> 
+  add_bars(type="bar") 
+```
+
+<br>
+
+::: {.fragment}
+
+### Bar plot with interativity 
+
+
+```{.r echo=TRUE}
+shared_data <- dataset |> SharedData$new()
+```
+
+:::
+
+
+## Code structure for adding interativity with Crosstalk
+
+<br>
+
+### Simple bar plot
+
+```{.r echo=TRUE}
+dataset |> 
+  plot_ly(y=~F_score, x = ~episode) |> 
+  add_bars(type="bar")
+```
+
+<br>
+
+
+### Bar plot with interativity 
+
+
+```{.r echo=TRUE}
+shared_data <- dataset |> SharedData$new()
+
+plot <- shared_data |> 
+  plot_ly(y=~F_score, x = ~episode) |> 
+  add_bars(type="bar")
+```
+
+
+## Code structure for adding interativity with Crosstalk
+
+<br>
+
+### Simple bar plot
+
+```{.r echo=TRUE}
+dataset |> 
+  plot_ly(y=~F_score, x = ~episode) |> 
+  add_bars(type="bar")
+```
+
+<br>
+
+
+### Bar plot with interativity 
+
+
+```{.r echo=TRUE}
+shared_data <- dataset |> SharedData$new()
+
+plot <- shared_data |> 
+  plot_ly(y=~F_score, x = ~episode) |> 
+  add_bars(type="bar")
+
+bscols(widths = c(2,10),
+       filter_checkbox(
+          id = "Season", 
+          label = "Season", 
+          sharedData = shared_data,  
+          group = ~Season
+      ), 
+      plot)
+```
+
+# Linking {background-color="#004E4F"}
+
+# Q3: Did Roy Kent have a lower average F-score while dating Keeley or while he was coaching?
+
+## We can use a bar plot to display average F-Score
+
+:::: columns
+
+::: {.column width="60%"}
+
+::: {.fragment}
+
+```{r}
+df_xls |> 
+  plot_ly(
+          width = 900,
+          height = 800) |> 
+  group_by(Dating_Coaching_flag) |> 
+  summarise(avg.fscore = mean(F_score, na.rm=TRUE)) |> 
+  add_bars(type="bar", y = ~Dating_Coaching_flag, x = ~avg.fscore) |> 
+  hide_legend() |> 
+  layout(barmode = "overlay")
+
+```
+
+:::
+
+:::
+
+::: {.column width="40%"}
+
+<br>
+
+::: {.fragment}
+
+This is just fine... but as Roy Kent said - 
+
+:::
+
+<br>
+
+
+::: {.fragment}
+
+![](Images/rk_dont_settle_for_fine2.gif){width="100%" fig-align="center"}
+
+:::
+
+:::
+
+::::
+
+# So, let's enable additional insights by linking it to another plot
+
+## 
+
+```{r}
+shared_data <- df_xls |> 
+  SharedData$new(key=~Dating_Coaching_flag)
+
+p1 <- shared_data |> 
+  plot_ly(
+          width = 1500,
+          height = 800) |> 
+  group_by(Dating_Coaching_flag) |> 
+  summarise(avg.fscore = mean(F_score, na.rm=TRUE)) |> 
+  add_bars(type="bar",y = ~Dating_Coaching_flag, x = ~avg.fscore) |> 
+  hide_legend() |> 
+  layout(barmode = "overlay")
+
+p2 <- shared_data |> 
+  plot_ly(x = ~Episode_order, y = ~F_count_RK, text = ~Season_Episode, 
+          width = 1500,
+          height = 800) |> 
+  add_bars(type="bar") 
+
+subplot(p1,p2) |> 
+  highlight(persistent = TRUE
+            , on = "plotly_click"
+            , off = "plotly_doubleclick"
+            , dynamic = TRUE
+            ) |> 
+  hide_legend()
+```
+
+
+# Through linking you can give control to your stakeholders so they can arrive at their own insights
+
+## Code structure for linking two plots
+
+<br>
+
+::: {.fragment}
+
+```{.r echo=TRUE}
+shared_data <- dataset |> 
+  SharedData$new(key=~Dating_Coaching_flag)
+```
+
+:::
+
+## Code structure for linking two plots
+
+<br>
+
+```{.r echo=TRUE}
+shared_data <- dataset |> 
+  SharedData$new(key=~Dating_Coaching_flag)
+
+plot1 <- shared_data |> 
+  plot_ly() |> 
+  group_by(Dating_Coaching_flag) |> 
+  summarise(avg.fscore = mean(F_score, na.rm=TRUE)) |> 
+  add_bars(y = ~Dating_Coaching_flag, x = ~avg.fscore, type="bar")
+  
+```
+
+## Code structure for linking two plots
+
+<br>
+
+
+```{.r echo=TRUE}
+shared_data <- dataset |> 
+  SharedData$new(key=~Dating_Coaching_flag)
+
+plot1 <- shared_data |> 
+  plot_ly() |> 
+  group_by(Dating_Coaching_flag) |> 
+  summarise(avg.fscore = mean(F_score, na.rm=TRUE)) |> 
+  add_bars(y = ~Dating_Coaching_flag, x = ~avg.fscore, type="bar")
+  
+plot2 <- shared_data |> 
+  plot_ly(x = ~Episode, y = ~F_count) |> 
+  add_bars(type="bar") 
+
+```
+
+
+## Code structure for linking two plots
+
+<br>
+
+```{.r echo=TRUE}
+shared_data <- dataset |> 
+  SharedData$new(key=~Dating_Coaching_flag)
+
+plot1 <- shared_data |> 
+  plot_ly() |> 
+  group_by(Dating_Coaching_flag) |> 
+  summarise(avg.fscore = mean(F_score, na.rm=TRUE)) |> 
+  add_bars(y = ~Dating_Coaching_flag, x = ~avg.fscore, type="bar")
+  
+plot2 <- shared_data |> 
+  plot_ly(x = ~Episode, y = ~F_count) |> 
+  add_bars(type="bar") 
+
+subplot(p1,p2) |> 
+  highlight(persistent = TRUE
+            , on = "plotly_click"
+            , off = "plotly_doubleclick"
+            , dynamic = TRUE
+            ) 
+```
+
+
+# Now that you have these tools...
+
+# Let's combine Animation and Interactivity and Linking - all together!!!
+
+::: {.fragment}
+In other words, what not to do!!
+:::
+
+## Disclaimer: Not recommended...
+
+```{r}
+shared_data <- df_xls |> 
+  SharedData$new(key=~Season_Episode)
+
+p1 <- shared_data |> 
+  plot_ly(x = ~Episode_order, y = ~F_count_RK, text = ~Season_Episode, type="bar",
+          width = 1200,
+          height = 800) |> 
+  add_bars(frame = ~Season)  |> 
+  layout(barmode = "overlay")
+
+p2 <- shared_data |> 
+  plot_ly(x = ~Episode_order, y = ~F_perc, text = ~Season_Episode, type="bar",
+          width = 1200,
+          height = 800) |> 
+  add_bars(frame = ~Season) |> 
+  layout(barmode = "overlay")
+
+
+bscols(widths = c(NA,1,10),
+       "",
+       filter_checkbox(
+         id = "Season", label = "Season", 
+         sharedData = shared_data,
+         group = ~Season
+       ),
+       subplot(p1,p2) |> 
+         highlight(persistent = TRUE
+                   , on = "plotly_click"
+                   , off = "plotly_doubleclick"
+         ) |> 
+         hide_legend())
+
+```
+
+## So if you were planning to now make everything animated and interactive...
+
+<br> 
+
+::: {.fragment}
+
+![](Images/rk_please stop.gif){width="60%" fig-align="center"}
+
+:::
+
+
+## Animation and interactivity enables you to
+
+<br>
+
+::: {.incremental}
+
+- Hold tension in your story
+- Add layers to control the ease of how the insight is derived
+- Give control to your stakeholders so they can arrive at their own insights
+
+:::
+
+## Next steps
+
+:::: columns
+
+::: {.column width="40%"}
+
+<br>
+
+::: {.fragment}
+
+::: callout-note
+# Github repository for code
+
+[Slides and plots code](https://github.com/deepshamenghani/gganimate_and_plotly)
+:::
+
+:::
+
+::: {.fragment}
+
+::: callout-tip
+# Plotly and Crosstalk
+
+[Plotly for R](https://github.com/deepshamenghani/gganimate_and_plotly) and [Crosstalk]()
+:::
+
+:::
+
+::: {.fragment}
+
+::: callout-warning
+# Don't animate everything
+
+[Plotly for R](https://github.com/deepshamenghani/gganimate_and_plotly) and [Crosstalk]()
+:::
+
+:::
+
+::: {.fragment}
+
+::: callout-important
+# Watch Ted Lasso
+
+[Plotly for R](https://github.com/deepshamenghani/gganimate_and_plotly) and [Crosstalk]()
+:::
+
+:::
+
+:::
+
+::: {.column width="60%"}
+
+<br>
+
+<br>
+
+
+::: {.fragment}
+
+![](Images/ted-lasso-believe.gif){width="80%" fig-align="center"}
+:::
+
+:::
+
+::::
