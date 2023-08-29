@@ -1,0 +1,1332 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="index_files/libs/clipboard/clipboard.min.js"></script>
+<script src="index_files/libs/quarto-html/tabby.min.js"></script>
+<script src="index_files/libs/quarto-html/popper.min.js"></script>
+<script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="index_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="index_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
+<link href="index_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.353">
+<meta name="author" content="Deepsha Menghani">
+<meta name="dcterms.date" content="2023-09-21">
+<title>Data Viz Animation and Interactivity with Roy Kent</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+<link rel="stylesheet" href="index_files/libs/revealjs/dist/reset.css">
+<link rel="stylesheet" href="index_files/libs/revealjs/dist/reveal.css">
+<style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #24292e;  }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #24292e; } /* Normal */
+    code span.al { color: #ff5555; font-weight: bold; } /* Alert */
+    code span.an { color: #6a737d; } /* Annotation */
+    code span.at { color: #d73a49; } /* Attribute */
+    code span.bn { color: #005cc5; } /* BaseN */
+    code span.bu { color: #d73a49; } /* BuiltIn */
+    code span.cf { color: #d73a49; } /* ControlFlow */
+    code span.ch { color: #032f62; } /* Char */
+    code span.cn { color: #005cc5; } /* Constant */
+    code span.co { color: #6a737d; } /* Comment */
+    code span.cv { color: #6a737d; } /* CommentVar */
+    code span.do { color: #6a737d; } /* Documentation */
+    code span.dt { color: #d73a49; } /* DataType */
+    code span.dv { color: #005cc5; } /* DecVal */
+    code span.er { color: #ff5555; text-decoration: underline; } /* Error */
+    code span.ex { color: #d73a49; font-weight: bold; } /* Extension */
+    code span.fl { color: #005cc5; } /* Float */
+    code span.fu { color: #6f42c1; } /* Function */
+    code span.im { color: #032f62; } /* Import */
+    code span.in { color: #6a737d; } /* Information */
+    code span.kw { color: #d73a49; } /* Keyword */
+    code span.op { color: #24292e; } /* Operator */
+    code span.ot { color: #6f42c1; } /* Other */
+    code span.pp { color: #d73a49; } /* Preprocessor */
+    code span.re { color: #6a737d; } /* RegionMarker */
+    code span.sc { color: #005cc5; } /* SpecialChar */
+    code span.ss { color: #032f62; } /* SpecialString */
+    code span.st { color: #032f62; } /* String */
+    code span.va { color: #e36209; } /* Variable */
+    code span.vs { color: #032f62; } /* VerbatimString */
+    code span.wa { color: #ff5555; } /* Warning */
+  </style>
+<link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto.css">
+<link href="index_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+<link href="index_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+<link href="index_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+<link href="index_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+<style type="text/css">
+
+  .callout {
+    margin-top: 1em;
+    margin-bottom: 1em;  
+    border-radius: .25rem;
+  }
+
+  .callout.callout-style-simple { 
+    padding: 0em 0.5em;
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+    display: flex;
+  }
+
+  .callout.callout-style-default {
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+  }
+
+  .callout .callout-body-container {
+    flex-grow: 1;
+  }
+
+  .callout.callout-style-simple .callout-body {
+    font-size: 1rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-style-default .callout-body {
+    font-size: 0.9rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-titled.callout-style-simple .callout-body {
+    margin-top: 0.2em;
+  }
+
+  .callout:not(.callout-titled) .callout-body {
+      display: flex;
+  }
+
+  .callout:not(.no-icon).callout-titled.callout-style-simple .callout-content {
+    padding-left: 1.6em;
+  }
+
+  .callout.callout-titled .callout-header {
+    padding-top: 0.2em;
+    margin-bottom: -0.2em;
+  }
+
+  .callout.callout-titled .callout-title  p {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+    
+  .callout.callout-titled.callout-style-simple .callout-content  p {
+    margin-top: 0;
+  }
+
+  .callout.callout-titled.callout-style-default .callout-content  p {
+    margin-top: 0.7em;
+  }
+
+  .callout.callout-style-simple div.callout-title {
+    border-bottom: none;
+    font-size: .9rem;
+    font-weight: 600;
+    opacity: 75%;
+  }
+
+  .callout.callout-style-default  div.callout-title {
+    border-bottom: none;
+    font-weight: 600;
+    opacity: 85%;
+    font-size: 0.9rem;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-default div.callout-content {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-simple .callout-icon::before {
+    height: 1rem;
+    width: 1rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 1rem 1rem;
+  }
+
+  .callout.callout-style-default .callout-icon::before {
+    height: 0.9rem;
+    width: 0.9rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 0.9rem 0.9rem;
+  }
+
+  .callout-title {
+    display: flex
+  }
+    
+  .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  .callout.no-icon::before {
+    display: none !important;
+  }
+
+  .callout.callout-titled .callout-body > .callout-content > :last-child {
+    margin-bottom: 0.5rem;
+  }
+
+  .callout.callout-titled .callout-icon::before {
+    margin-top: .5rem;
+    padding-right: .5rem;
+  }
+
+  .callout:not(.callout-titled) .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  /* Callout Types */
+
+  div.callout-note {
+    border-left-color: #4582ec !important;
+  }
+
+  div.callout-note .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEU0lEQVRYCcVXTWhcVRQ+586kSUMMxkyaElstCto2SIhitS5Ek8xUKV2poatCcVHtUlFQk8mbaaziwpWgglJwVaquitBOfhQXFlqlzSJpFSpIYyXNjBNiTCck7x2/8/LeNDOZxDuEkgOXe++553zfefee+/OYLOXFk3+1LLrRdiO81yNqZ6K9cG0P3MeFaMIQjXssE8Z1JzLO9ls20MBZX7oG8w9GxB0goaPrW5aNMp1yOZIa7Wv6o2ykpLtmAPs/vrG14Z+6d4jpbSKuhdcSyq9wGMPXjonwmESXrriLzFGOdDBLB8Y6MNYBu0dRokSygMA/mrun8MGFN3behm6VVAwg4WR3i6FvYK1T7MHo9BK7ydH+1uurECoouk5MPRyVSBrBHMYwVobG2aOXM07sWrn5qgB60rc6mcwIDJtQrnrEr44kmy+UO9r0u9O5/YbkS9juQckLed3DyW2XV/qWBBB3ptvI8EUY3I9p/67OW+g967TNr3Sotn3IuVlfMLVnsBwH4fsnebJvyGm5GeIUA3jljERmrv49SizPYuq+z7c2H/jlGC+Ghhupn/hcapqmcudB9jwJ/3jvnvu6vu5lVzF1fXyZuZZ7U8nRmVzytvT+H3kilYvH09mLWrQdwFSsFEsxFVs5fK7A0g8gMZjbif4ACpKbjv7gNGaD8bUrlk8x+KRflttr22JEMRUbTUwwDQScyzPgedQHZT0xnx7ujw2jfVfExwYHwOsDTjLdJ2ebmeQIlJ7neo41s/DrsL3kl+W2lWvAga0tR3zueGr6GL78M3ifH0rGXrBC2aAR8uYcIA5gwV8zIE8onoh8u0Fca/ciF7j1uOzEnqcIm59sEXoGc0+z6+H45V1CvAvHcD7THztu669cnp+L0okAeIc6zjbM/24LgGM1gZk7jnRu1aQWoU9sfUOuhrmtaPIO3YY1KLLWZaEO5TKUbMY5zx8W9UJ6elpLwKXbsaZ4EFl7B4bMtDv0iRipKoDQT2sNQI9b1utXFdYisi+wzZ/ri/1m7QfDgEuvgUUEIJPq3DhX/5DWNqIXDOweC2wvIR90Oq3lDpdMIgD2r0dXvGdsEW5H6x6HLRJYU7C69VefO1x8Gde1ZFSJLfWS1jbCnhtOPxmpfv2LXOA2Xk2tvnwKKPFuZ/oRmwBwqRQDcKNeVQkYcOjtWVBuM/JuYw5b6isojIkYxyYAFn5K7ZBF10fea52y8QltAg6jnMqNHFBmGkQ1j+U43HMi2xMar1Nv0zGsf1s8nUsmUtPOOrbFIR8bHFDMB5zL13Gmr/kGlCkUzedTzzmzsaJXhYawnA3UmARpiYj5ooJZiUoxFRtK3X6pgNPv+IZVPcnwbOl6f+aBaO1CNvPW9n9LmCp01nuSaTRF2YxHqZ8DYQT6WsXT+RD6eUztwYLZ8rM+rcPxamv1VQzFUkzFXvkiVrySGQgJNvXHJAxiU3/NwiC03rSf05VBaPtu/Z7/B8Yn/w7eguloAAAAAElFTkSuQmCC');
+  }
+
+  div.callout-note.callout-style-default .callout-title {
+    background-color: #dae6fb
+  }
+
+  div.callout-important {
+    border-left-color: #d9534f !important;
+  }
+
+  div.callout-important .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEKklEQVRYCcVXTWhcVRS+575MJym48A+hSRFr00ySRQhURRfd2HYjk2SSTokuBCkU2o0LoSKKraKIBTcuFCoidGFD08nkBzdREbpQ1EDNIv8qSGMFUboImMSZd4/f9zJv8ibJMC8xJQfO3HPPPef7zrvvvnvviIkpC9nsw0UttFunbUhpFzFtarSd6WJkStVMw5xyVqYTvkwfzuf/5FgtkVoB0729j1rjXwThS7Vio+Mo6DNnvLfahoZ+i/o32lULuJ3NNiz7q6+pyAUkJaFF6JwaM2lUJlV0MlnQn5aTRbEu0SEqHUa0A4AdiGuB1kFXRfVyg5d87+Dg4DL6m2TLAub60ilj7A1Ec4odSAc8X95sHh7+ZRPCFo6Fnp7HfU/fBng/hi10CjCnWnJjsxvDNxWw0NfV6Rv5GgP3I3jGWXumdTD/3cbEOP2ZbOZp69yniG3FQ9z1jD7bnBu9Fc2tKGC2q+uAJOQHBDRiZX1x36o7fWBs7J9ownbtO+n0/qWkvW7UPIfc37WgT6ZGR++EOJyeQDSb9UB+DZ1G6DdLDzyS+b/kBCYGsYgJbSQHuThGKRcw5xdeQf8YdNHsc6ePXrlSYMBuSIAFTGAtQo+VuALo4BX83N190NWZWbynBjhOHsmNfFWLeL6v+ynsA58zDvvAC8j5PkbOcXCMg2PZFk3q8MjI7WAG/Dp9AwP7jdGBOOQkAvlFUB+irtm16I1Zw9YBcpGTGXYmk3kQIC/Cds55l+iMI3jqhjAuaoe+am2Jw5GT3Nbz3CkE12NavmzN5+erJW7046n/CH1RO/RVa8lBLozXk9uqykkGAyRXLWlLv5jyp4RFsG5vGVzpDLnIjTWgnRy2Rr+tDKvRc7Y8AyZq10jj8DqXdnIRNtFZb+t/ZRtXcDiVnzpqx8mPcDWxgARUqx0W1QB9MeUZiNrV4qP+Ehc+BpNgATsTX8ozYKL2NtFYAHc84fG7ndxUPr+AR/iQSns7uSUufAymwDOb2+NjK27lEFocm/EE2WpyIy/Hi66MWuMKJn8RvxIcj87IM5Vh9663ziW36kR0HNenXuxmfaD8JC7tfKbrhFr7LiZCrMjrzTeGx+PmkosrkNzW94ObzwocJ7A1HokLolY+AvkTiD/q1H0cN48c5EL8Crkttsa/AXQVDmutfyku0E7jShx49XqV3MFK8IryDhYVbj7Sj2P2eBxwcXoe8T8idsKKPRcnZw1b+slFTubwUwhktrfnAt7J++jwQtLZcm3sr9LQrjRzz6cfMv9aLvgmnAGvpoaGLxM4mAEaLV7iAzQ3oU0IvD5x9ix3yF2RAAuYAOO2f7PEFWCXZ4C9Pb2UsgDeVnFSpbFK7/IWu7TPTvBqzbGdCHOJQSxiEjt6IyZmxQyEJHv6xyQsYk//moVFsN2zP6fRImjfq7/n/wFDguUQFNEwugAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-important.callout-style-default .callout-title {
+    background-color: #f7dddc
+  }
+
+  div.callout-warning {
+    border-left-color: #f0ad4e !important;
+  }
+
+  div.callout-warning .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAETklEQVRYCeVWW2gcVRg+58yaTUnizqbipZeX4uWhBEniBaoUX1Ioze52t7sRq6APio9V9MEaoWlVsFasRq0gltaAPuxms8lu0gcviE/FFOstVbSIxgcv6SU7EZqmdc7v9+9mJtNks51NTUH84ed889/PP+cmxP+d5FIbMJmNbpREu4WUkiTtCicKny0l1pIKmBzovF2S+hIJHX8iEu3hZJ5lNZGqyRrGSIQpq15AzF28jgpeY6yk6GVdrfFqdrD6Iw+QlB8g0YS2g7dyQmXM/IDhBhT0UCiRf59lfqmmDvzRt6kByV/m4JjtzuaujMUM2c5Z2d6JdKrRb3K2q6mA+oYVz8JnDdKPmmNthzkAk/lN63sYPgevrguc72aZX/L9C6x09GYyxBgCX4NlvyGUHOKELlm5rXeR1kchuChJt4SSwyddZRXgvwMGvYo4QSlk3/zkHD8UHxwVJA6zjZZqP8v8kK8OWLnIZtLyCAJagYC4rTGW/9Pqj92N/c+LUaAj27movwbi19tk/whRCIE7Q9vyI6yvRpftAKVTdUjOW40X3h5OXsKCdmFcx0xlLJoSuQngnrJe7Kcjm4OMq9FlC7CMmScQANuNvjfP3PjGXDBaUQmbp296S5L4DrpbrHN1T87ZVEZVCzg1FF0Ft+dKrlLukI+/c9ENo+TvlTDbYFvuKPtQ9+l052rXrgKoWkDAFnvh0wTOmYn8R5f4k/jN/fZiCM1tQx9jQQ4ANhqG4hiL0qIFTGViG9DKB7GYzgubnpofgYRwO+DFjh0Zin2m4b/97EDkXkc+f6xYAPX0KK2I/7fUQuwzuwo/L3AkcjugPNixC8cHf0FyPjWlItmLxWw4Ou9YsQCr5fijMGoD/zpdRy95HRysyXA74MWOnscpO4j2y3HAVisw85hX5+AFBRSHt4ShfLFkIMXTqyKFc46xdzQM6XbAi702a7sy04J0+feReMFKp5q9esYLCqAZYw/k14E/xcLLsFElaornTuJB0svMuJINy8xkIYuL+xPAlWRceH6+HX7THJ0djLUom46zREu7tTkxwmf/FdOZ/sh6Q8qvEAiHpm4PJ4a/doJe0gH1t+aHRgCzOvBvJedEK5OFE5jpm4AGP2a8Dxe3gGJ/pAutug9Gp6he92CsSsWBaEcxGx0FHytmIpuqGkOpldqNYQK8cSoXvd+xLxXADw0kf6UkJNFtdo5MOgaLjiQOQHcn+A6h5NuL2s0qsC2LOM75PcF3yr5STuBSAcGG+meA14K/CI21HcS4LBT6tv0QAh8Dr5l93AhZzG5ZJ4VxAqdZUEl9z7WJ4aN+svMvwHHL21UKTd1mqvChH7/Za5xzXBBKrUcB0TQ+Ulgkfbi/H/YT5EptrGzsEK7tR1B7ln9BBwckYfMiuSqklSznIuoIIOM42MQO+QnduCoFCI0bpkzjCjddHPN/F+2Yu+sd9bKNpVwHhbS3LluK/0zgfwD0xYI5dXuzlQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-warning.callout-style-default .callout-title {
+    background-color: #fcefdc
+  }
+
+  div.callout-tip {
+    border-left-color: #02b875 !important;
+  }
+
+  div.callout-tip .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAADr0lEQVRYCe1XTWgTQRj9ZjZV8a9SPIkKgj8I1bMHsUWrqYLVg4Ue6v9BwZOxSYsIerFao7UiUryIqJcqgtpimhbBXoSCVxUFe9CTiogUrUp2Pt+3aUI2u5vdNh4dmMzOzHvvezuz8xNFM0mjnbXaNu1MvFWRXkXEyE6aYOYJpdW4IXuA4r0fo8qqSMDBU0v1HJUgVieAXxzCsdE/YJTdFcVIZQNMyhruOMJKXYFoLfIfIvVIMWdsrd+Rpd86ZmyzzjJmLStqRn0v8lzkb4rVIXvnpScOJuAn2ACC65FkPzEdEy4TPWRLJ2h7z4cArXzzaOdKlbOvKKX25Wl00jSnrwVxAg3o4dRxhO13RBSdNvH0xSARv3adTXbBdTf64IWO2vH0LT+cv4GR1DJt+DUItaQogeBX/chhbTBxEiZ6gftlDNXTrvT7co4ub5A6gp9HIcHvzTa46OS5fBeP87Qm0fQkr4FsYgVQ7Qg+ZayaDg9jhg1GkWj8RG6lkeSacrrHgDaxdoBiZPg+NXV/KifMuB6//JmYH4CntVEHy/keA6x4h4CU5oFy8GzrBS18cLJMXcljAKB6INjWsRcuZBWVaS3GDrqB7rdapVIeA+isQ57Eev9eCqzqOa81CY05VLd6SamW2wA2H3SiTbnbSxmzfp7WtKZkqy4mdyAlGx7ennghYf8voqp9cLSgKdqNfa6RdRsAAkPwRuJZNbpByn+RrJi1RXTwdi8RQF6ymDwGMAtZ6TVE+4uoKh+MYkcLsT0Hk8eAienbiGdjJHZTpmNjlbFJNKDVAp2fJlYju6IreQxQ08UJDNYdoLSl6AadO+fFuCQqVMB1NJwPm69T04Wv5WhfcWyfXQB+wXRs1pt+nCknRa0LVzSA/2B+a9+zQJadb7IyyV24YAxKp2Jqs3emZTuNnKxsah+uabKbMk7CbTgJx/zIgQYErIeTKRQ9yD9wxVof5YolPHqaWo7TD6tJlh7jQnK5z2n3+fGdggIOx2kaa2YI9QWarc5Ce1ipNWMKeSG4DysFF52KBmTNMmn5HqCFkwy34rDg05gDwgH3bBi+sgFhN/e8QvRn8kbamCOhgrZ9GJhFDgfcMHzFb6BAtjKpFhzTjwv1KCVuxHvCbsSiEz4CANnj84cwHdFXAbAOJ4LTSAawGWFn5tDhLMYz6nWeU2wJfIhmIJBefcd/A5FWQWGgrWzyORZ3Q6HuV+Jf0Bj+BTX69fm1zWgK7By1YTXchFDORywnfQ7GpzOo6S+qECrsx2ifVQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-tip.callout-style-default .callout-title {
+    background-color: #ccf1e3
+  }
+
+  div.callout-caution {
+    border-left-color: #fd7e14 !important;
+  }
+
+  div.callout-caution .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAACV0lEQVRYCdVWzWoUQRCuqp2ICBLJXgITZL1EfQDBW/bkzUMUD7klD+ATSHBEfAIfQO+iXsWDxJsHL96EHAwhgzlkg8nBg25XWb0zIb0zs9muYYWkoKeru+vn664fBqElyZNuyh167NXJ8Ut8McjbmEraKHkd7uAnAFku+VWdb3reSmRV8PKSLfZ0Gjn3a6Xlcq9YGb6tADjn+lUfTXtVmaZ1KwBIvFI11rRXlWlatwIAAv2asaa9mlB9wwygiDX26qaw1yYPzFXg2N1GgG0FMF8Oj+VIx7E/03lHx8UhvYyNZLN7BwSPgekXXLribw7w5/c8EF+DBK5idvDVYtEEwMeYefjjLAdEyQ3M9nfOkgnPTEkYU+sxMq0BxNR6jExrAI31H1rzvLEfRIdgcv1XEdj6QTQAS2wtstEALLG1yEZ3QhH6oDX7ExBSFEkFINXH98NTrme5IOaaA7kIfiu2L8A3qhH9zRbukdCqdsA98TdElyeMe5BI8Rs2xHRIsoTSSVFfCFCWGPn9XHb4cdobRIWABNf0add9jakDjQJpJ1bTXOJXnnRXHRf+dNL1ZV1MBRCXhMbaHqGI1JkKIL7+i8uffuP6wVQAzO7+qVEbF6NbS0LJureYcWXUUhH66nLR5rYmva+2tjRFtojkM2aD76HEGAD3tPtKM309FJg5j/K682ywcWJ3PASCcycH/22u+Bh7Aa0ehM2Fu4z0SAE81HF9RkB21c5bEn4Dzw+/qNOyXr3DCTQDMBOdhi4nAgiFDGCinIa2owCEChUwD8qzd03PG+qdW/4fDzjUMcE1ZpIAAAAASUVORK5CYII=');
+  }
+
+  div.callout-caution.callout-style-default .callout-title {
+    background-color: #ffe5d0
+  }
+
+  </style>
+<style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+<script src="index_files/libs/htmlwidgets-1.6.2/htmlwidgets.js"></script><script src="index_files/libs/plotly-binding-4.10.2/plotly.js"></script><script src="index_files/libs/typedarray-0.1/typedarray.min.js"></script><script src="index_files/libs/jquery-3.5.1/jquery.min.js"></script><link href="index_files/libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="index_files/libs/crosstalk-1.2.0/js/crosstalk.min.js"></script><link href="index_files/libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="index_files/libs/plotly-main-2.11.1/plotly-latest.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="index_files/libs/bootstrap-grid-3.4.1/bootstrap-grid.min.css" rel="stylesheet">
+<link href="index_files/libs/colourpicker-1.1/colourpicker.min.css" rel="stylesheet">
+<script src="index_files/libs/colourpicker-1.1/colourpicker.min.js"></script>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" data-background-color="#004E4F" class="quarto-title-block center"><h1 class="title">Data Viz Animation and Interactivity with Roy Kent</h1>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Deepsha Menghani 
+</div>
+</div>
+</div>
+
+  <p class="date">2023-09-21</p>
+</section><section><section id="what-are-we-here-to-answer" class="title-slide slide level1 center"><h1>What are we here to answer?</h1>
+
+</section><section id="section" class="slide level2" data-auto-animate="true"><h2 data-id="quarto-animate-title"></h2>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<ul>
+<li>Why should you use animation and interactivity in your data viz?</li>
+</ul></section><section id="section-1" class="slide level2" data-auto-animate="true"><h2 data-id="quarto-animate-title"></h2>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<ul>
+<li>When should you use it?</li>
+<li>Why should you use animation and interactivity in your data viz?</li>
+</ul></section><section id="section-2" class="slide level2" data-auto-animate="true"><h2 data-id="quarto-animate-title"></h2>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<ul>
+<li>How can you build it yourself?</li>
+<li>When should you use it?</li>
+<li>Why should you use animation and interactivity in your data viz?</li>
+</ul></section><section id="section-3" class="slide level2" data-auto-animate="true"><h2 data-id="quarto-animate-title"></h2>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<ul>
+<li>And have fun learning with me, Ted Lasso and Roy Kent!!</li>
+<li>How can you build it yourself?</li>
+<li>When should you use it?</li>
+<li>Why should you use animation and interactivity in your data viz?</li>
+</ul></section></section><section id="but-first..-what-is-ted-lasso-and-who-is-roy-kent" class="title-slide slide level1 center"><h1>But first.. What is Ted Lasso and who is Roy Kent?</h1>
+<p><br></p>
+
+<img data-src="Images/rk_tl.jpg" style="width:20.0%" class="r-stretch quarto-figure-center"></section><section id="various-moods-of-roy-kent" class="title-slide slide level1 center"><h1>Various moods of Roy Kent</h1>
+<p><br></p>
+<div class="quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell" style="flex-basis: 25.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure><p><img data-src="Images/rk_wtf.jpg"></p>
+<figcaption>Happy</figcaption></figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 25.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure><p><img data-src="Images/rk_wtf.jpg"></p>
+<figcaption>Sad</figcaption></figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 25.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure><p><img data-src="Images/rk_wtf.jpg"></p>
+<figcaption>Mad</figcaption></figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 25.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure><p><img data-src="Images/rk_wtf.jpg"></p>
+<figcaption>Amused</figcaption></figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell" style="flex-basis: 25.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure><p><img data-src="Images/rk_wtf.jpg"></p>
+<figcaption>Loving</figcaption></figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 25.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure><p><img data-src="Images/rk_wtf.jpg"></p>
+<figcaption>Surprised</figcaption></figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 25.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure><p><img data-src="Images/rk_wtf.jpg"></p>
+<figcaption>Thoughtful</figcaption></figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 25.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure><p><img data-src="Images/rk_wtf.jpg"></p>
+<figcaption>Joyous</figcaption></figure>
+</div>
+</div>
+</div>
+</div>
+</section><section id="so-we-are-going-to-look-at-the-number-of-f-bombs-dropped-by-roy-kent-for-our-visualizations" class="title-slide slide level1 center"><h1>So, we are going to look at the number of F-bombs dropped by Roy Kent for our visualizations!</h1>
+
+</section><section id="animation" class="title-slide slide level1 center" data-background-color="#004E4F"><h1>Animation</h1>
+
+</section><section><section id="lets-start-with-a-question" class="title-slide slide level1 center"><h1>Let’s start with a question…</h1>
+
+</section><section id="q1-what-season-did-roy-kent-end-up-dropping-the-most-number-of-f-bombs" class="slide level2"><h2>Q1: What season did Roy Kent end up dropping the most number of F-bombs?</h2>
+</section><section id="q1-what-season-did-roy-kent-end-up-dropping-the-most-number-of-f-bombs-1" class="slide level2"><h2>Q1: What season did Roy Kent end up dropping the most number of F-bombs?</h2>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:35%;">
+<ul>
+<li>Season 1 - Episode 1: <strong>2</strong>
+</li>
+</ul>
+<p><br></p>
+<ul>
+<li>Season 2 - Episode 1: <strong>11</strong>
+</li>
+</ul>
+<p><br></p>
+<ul>
+<li>Season 3 - Episode 1: <strong>6</strong>
+</li>
+</ul>
+</div><div class="column" style="width:65%;">
+<div class="cell">
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-6e6ece9e84de32379de4" style="width:960px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-6e6ece9e84de32379de4">{"x":{"visdat":{"6698464abc":["function () ","plotlyVisDat"]},"cur_data":"6698464abc","attrs":{"6698464abc":{"y":{},"x":{},"size":{},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar","frame":{},"ids":{},"color":{},"inherit":true}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":"Cumulative F* bombs by Roy Kent each season","xaxis":{"domain":[0,1],"automargin":true,"title":"","range":[-4.8000000000000007,144.80000000000001]},"yaxis":{"domain":[0,1],"automargin":true,"title":"","type":"category","categoryorder":"array","categoryarray":["Season<br />3","Season<br />2","Season<br />1"]},"hovermode":"closest","showlegend":false,"sliders":[{"currentvalue":{"prefix":"Episode: ","xanchor":"right","font":{"size":16,"color":"rgba(204,204,204,1)"}},"steps":[{"method":"animate","args":[["1"],{"transition":{"duration":300,"easing":"linear"},"frame":{"duration":800,"redraw":true},"mode":"immediate"}],"label":"1","value":"1"},{"method":"animate","args":[["2"],{"transition":{"duration":300,"easing":"linear"},"frame":{"duration":800,"redraw":true},"mode":"immediate"}],"label":"2","value":"2"},{"method":"animate","args":[["3"],{"transition":{"duration":300,"easing":"linear"},"frame":{"duration":800,"redraw":true},"mode":"immediate"}],"label":"3","value":"3"},{"method":"animate","args":[["4"],{"transition":{"duration":300,"easing":"linear"},"frame":{"duration":800,"redraw":true},"mode":"immediate"}],"label":"4","value":"4"},{"method":"animate","args":[["5"],{"transition":{"duration":300,"easing":"linear"},"frame":{"duration":800,"redraw":true},"mode":"immediate"}],"label":"5","value":"5"},{"method":"animate","args":[["6"],{"transition":{"duration":300,"easing":"linear"},"frame":{"duration":800,"redraw":true},"mode":"immediate"}],"label":"6","value":"6"},{"method":"animate","args":[["7"],{"transition":{"duration":300,"easing":"linear"},"frame":{"duration":800,"redraw":true},"mode":"immediate"}],"label":"7","value":"7"},{"method":"animate","args":[["8"],{"transition":{"duration":300,"easing":"linear"},"frame":{"duration":800,"redraw":true},"mode":"immediate"}],"label":"8","value":"8"},{"method":"animate","args":[["9"],{"transition":{"duration":300,"easing":"linear"},"frame":{"duration":800,"redraw":true},"mode":"immediate"}],"label":"9","value":"9"},{"method":"animate","args":[["10"],{"transition":{"duration":300,"easing":"linear"},"frame":{"duration":800,"redraw":true},"mode":"immediate"}],"label":"10","value":"10"},{"method":"animate","args":[["11"],{"transition":{"duration":300,"easing":"linear"},"frame":{"duration":800,"redraw":true},"mode":"immediate"}],"label":"11","value":"11"},{"method":"animate","args":[["12"],{"transition":{"duration":300,"easing":"linear"},"frame":{"duration":800,"redraw":true},"mode":"immediate"}],"label":"12","value":"12"}],"visible":true,"pad":{"t":40}}],"updatemenus":[{"type":"buttons","direction":"right","showactive":false,"y":0,"x":0,"yanchor":"top","xanchor":"right","pad":{"t":60,"r":5},"buttons":[{"label":"Play","method":"animate","args":[null,{"fromcurrent":true,"mode":"immediate","transition":{"duration":300,"easing":"linear"},"frame":{"duration":800,"redraw":true}}]}]}]},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},".hideLegend":true,"data":[{"y":["Season<br />1"],"x":[2],"type":"bar","frame":"1","ids":["Season<br />1"],"orientation":"h","name":"Season<br />1","textfont":{"color":"rgba(141,160,203,1)","size":10},"error_y":{"color":"rgba(141,160,203,1)","width":10},"error_x":{"color":"rgba(141,160,203,1)","width":10},"marker":{"color":"rgba(141,160,203,1)","line":{"color":"rgba(141,160,203,1)"}},"xaxis":"x","yaxis":"y","visible":true},{"y":["Season<br />2"],"x":[11],"type":"bar","frame":"1","ids":["Season<br />2"],"orientation":"h","name":"Season<br />2","textfont":{"color":"rgba(252,141,98,1)","size":15.955882352941178},"error_y":{"color":"rgba(252,141,98,1)","width":15.955882352941178},"error_x":{"color":"rgba(252,141,98,1)","width":15.955882352941178},"marker":{"color":"rgba(252,141,98,1)","line":{"color":"rgba(252,141,98,1)"}},"xaxis":"x","yaxis":"y","visible":true},{"y":["Season<br />3"],"x":[6],"type":"bar","frame":"1","ids":["Season<br />3"],"orientation":"h","name":"Season<br />3","textfont":{"color":"rgba(102,194,165,1)","size":12.647058823529411},"error_y":{"color":"rgba(102,194,165,1)","width":12.647058823529411},"error_x":{"color":"rgba(102,194,165,1)","width":12.647058823529411},"marker":{"color":"rgba(102,194,165,1)","line":{"color":"rgba(102,194,165,1)"}},"xaxis":"x","yaxis":"y","visible":true}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"frames":[{"name":"1","data":[{"y":["Season<br />1"],"x":[2],"type":"bar","frame":"1","ids":["Season<br />1"],"orientation":"h","name":"Season<br />1","textfont":{"color":"rgba(141,160,203,1)","size":10},"error_y":{"color":"rgba(141,160,203,1)","width":10},"error_x":{"color":"rgba(141,160,203,1)","width":10},"marker":{"color":"rgba(141,160,203,1)","line":{"color":"rgba(141,160,203,1)"}},"xaxis":"x","yaxis":"y","visible":true},{"y":["Season<br />2"],"x":[11],"type":"bar","frame":"1","ids":["Season<br />2"],"orientation":"h","name":"Season<br />2","textfont":{"color":"rgba(252,141,98,1)","size":15.955882352941178},"error_y":{"color":"rgba(252,141,98,1)","width":15.955882352941178},"error_x":{"color":"rgba(252,141,98,1)","width":15.955882352941178},"marker":{"color":"rgba(252,141,98,1)","line":{"color":"rgba(252,141,98,1)"}},"xaxis":"x","yaxis":"y","visible":true},{"y":["Season<br />3"],"x":[6],"type":"bar","frame":"1","ids":["Season<br />3"],"orientation":"h","name":"Season<br />3","textfont":{"color":"rgba(102,194,165,1)","size":12.647058823529411},"error_y":{"color":"rgba(102,194,165,1)","width":12.647058823529411},"error_x":{"color":"rgba(102,194,165,1)","width":12.647058823529411},"marker":{"color":"rgba(102,194,165,1)","line":{"color":"rgba(102,194,165,1)"}},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0,1,2]},{"name":"2","data":[{"y":["Season<br />1"],"x":[4],"type":"bar","frame":"2","ids":["Season<br />1"],"orientation":"h","name":"Season<br />1","textfont":{"color":"rgba(141,160,203,1)","size":11.323529411764707},"error_y":{"color":"rgba(141,160,203,1)","width":11.323529411764707},"error_x":{"color":"rgba(141,160,203,1)","width":11.323529411764707},"marker":{"color":"rgba(141,160,203,1)","line":{"color":"rgba(141,160,203,1)"}},"xaxis":"x","yaxis":"y","visible":true},{"y":["Season<br />2"],"x":[21],"type":"bar","frame":"2","ids":["Season<br />2"],"orientation":"h","name":"Season<br />2","textfont":{"color":"rgba(252,141,98,1)","size":22.573529411764707},"error_y":{"color":"rgba(252,141,98,1)","width":22.573529411764707},"error_x":{"color":"rgba(252,141,98,1)","width":22.573529411764707},"marker":{"color":"rgba(252,141,98,1)","line":{"color":"rgba(252,141,98,1)"}},"xaxis":"x","yaxis":"y","visible":true},{"y":["Season<br />3"],"x":[22],"type":"bar","frame":"2","ids":["Season<br />3"],"orientation":"h","name":"Season<br />3","textfont":{"color":"rgba(102,194,165,1)","size":23.235294117647058},"error_y":{"color":"rgba(102,194,165,1)","width":23.235294117647058},"error_x":{"color":"rgba(102,194,165,1)","width":23.235294117647058},"marker":{"color":"rgba(102,194,165,1)","line":{"color":"rgba(102,194,165,1)"}},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0,1,2]},{"name":"3","data":[{"y":["Season<br />1"],"x":[11],"type":"bar","frame":"3","ids":["Season<br />1"],"orientation":"h","name":"Season<br />1","textfont":{"color":"rgba(141,160,203,1)","size":15.955882352941178},"error_y":{"color":"rgba(141,160,203,1)","width":15.955882352941178},"error_x":{"color":"rgba(141,160,203,1)","width":15.955882352941178},"marker":{"color":"rgba(141,160,203,1)","line":{"color":"rgba(141,160,203,1)"}},"xaxis":"x","yaxis":"y","visible":true},{"y":["Season<br />2"],"x":[23],"type":"bar","frame":"3","ids":["Season<br />2"],"orientation":"h","name":"Season<br />2","textfont":{"color":"rgba(252,141,98,1)","size":23.897058823529413},"error_y":{"color":"rgba(252,141,98,1)","width":23.897058823529413},"error_x":{"color":"rgba(252,141,98,1)","width":23.897058823529413},"marker":{"color":"rgba(252,141,98,1)","line":{"color":"rgba(252,141,98,1)"}},"xaxis":"x","yaxis":"y","visible":true},{"y":["Season<br />3"],"x":[32],"type":"bar","frame":"3","ids":["Season<br />3"],"orientation":"h","name":"Season<br />3","textfont":{"color":"rgba(102,194,165,1)","size":29.852941176470587},"error_y":{"color":"rgba(102,194,165,1)","width":29.852941176470587},"error_x":{"color":"rgba(102,194,165,1)","width":29.852941176470587},"marker":{"color":"rgba(102,194,165,1)","line":{"color":"rgba(102,194,165,1)"}},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0,1,2]},{"name":"4","data":[{"y":["Season<br />1"],"x":[19],"type":"bar","frame":"4","ids":["Season<br />1"],"orientation":"h","name":"Season<br />1","textfont":{"color":"rgba(141,160,203,1)","size":21.25},"error_y":{"color":"rgba(141,160,203,1)","width":21.25},"error_x":{"color":"rgba(141,160,203,1)","width":21.25},"marker":{"color":"rgba(141,160,203,1)","line":{"color":"rgba(141,160,203,1)"}},"xaxis":"x","yaxis":"y","visible":true},{"y":["Season<br />2"],"x":[25],"type":"bar","frame":"4","ids":["Season<br />2"],"orientation":"h","name":"Season<br />2","textfont":{"color":"rgba(252,141,98,1)","size":25.220588235294116},"error_y":{"color":"rgba(252,141,98,1)","width":25.220588235294116},"error_x":{"color":"rgba(252,141,98,1)","width":25.220588235294116},"marker":{"color":"rgba(252,141,98,1)","line":{"color":"rgba(252,141,98,1)"}},"xaxis":"x","yaxis":"y","visible":true},{"y":["Season<br />3"],"x":[49],"type":"bar","frame":"4","ids":["Season<br />3"],"orientation":"h","name":"Season<br />3","textfont":{"color":"rgba(102,194,165,1)","size":41.102941176470587},"error_y":{"color":"rgba(102,194,165,1)","width":41.102941176470587},"error_x":{"color":"rgba(102,194,165,1)","width":41.102941176470587},"marker":{"color":"rgba(102,194,165,1)","line":{"color":"rgba(102,194,165,1)"}},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0,1,2]},{"name":"5","data":[{"y":["Season<br />1"],"x":[23],"type":"bar","frame":"5","ids":["Season<br />1"],"orientation":"h","name":"Season<br />1","textfont":{"color":"rgba(141,160,203,1)","size":23.897058823529413},"error_y":{"color":"rgba(141,160,203,1)","width":23.897058823529413},"error_x":{"color":"rgba(141,160,203,1)","width":23.897058823529413},"marker":{"color":"rgba(141,160,203,1)","line":{"color":"rgba(141,160,203,1)"}},"xaxis":"x","yaxis":"y","visible":true},{"y":["Season<br />2"],"x":[48],"type":"bar","frame":"5","ids":["Season<br />2"],"orientation":"h","name":"Season<br />2","textfont":{"color":"rgba(252,141,98,1)","size":40.441176470588232},"error_y":{"color":"rgba(252,141,98,1)","width":40.441176470588232},"error_x":{"color":"rgba(252,141,98,1)","width":40.441176470588232},"marker":{"color":"rgba(252,141,98,1)","line":{"color":"rgba(252,141,98,1)"}},"xaxis":"x","yaxis":"y","visible":true},{"y":["Season<br />3"],"x":[62],"type":"bar","frame":"5","ids":["Season<br />3"],"orientation":"h","name":"Season<br />3","textfont":{"color":"rgba(102,194,165,1)","size":49.705882352941174},"error_y":{"color":"rgba(102,194,165,1)","width":49.705882352941174},"error_x":{"color":"rgba(102,194,165,1)","width":49.705882352941174},"marker":{"color":"rgba(102,194,165,1)","line":{"color":"rgba(102,194,165,1)"}},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0,1,2]},{"name":"6","data":[{"y":["Season<br />1"],"x":[25],"type":"bar","frame":"6","ids":["Season<br />1"],"orientation":"h","name":"Season<br />1","textfont":{"color":"rgba(141,160,203,1)","size":25.220588235294116},"error_y":{"color":"rgba(141,160,203,1)","width":25.220588235294116},"error_x":{"color":"rgba(141,160,203,1)","width":25.220588235294116},"marker":{"color":"rgba(141,160,203,1)","line":{"color":"rgba(141,160,203,1)"}},"xaxis":"x","yaxis":"y","visible":true},{"y":["Season<br />2"],"x":[60],"type":"bar","frame":"6","ids":["Season<br />2"],"orientation":"h","name":"Season<br />2","textfont":{"color":"rgba(252,141,98,1)","size":48.382352941176471},"error_y":{"color":"rgba(252,141,98,1)","width":48.382352941176471},"error_x":{"color":"rgba(252,141,98,1)","width":48.382352941176471},"marker":{"color":"rgba(252,141,98,1)","line":{"color":"rgba(252,141,98,1)"}},"xaxis":"x","yaxis":"y","visible":true},{"y":["Season<br />3"],"x":[75],"type":"bar","frame":"6","ids":["Season<br />3"],"orientation":"h","name":"Season<br />3","textfont":{"color":"rgba(102,194,165,1)","size":58.308823529411761},"error_y":{"color":"rgba(102,194,165,1)","width":58.308823529411761},"error_x":{"color":"rgba(102,194,165,1)","width":58.308823529411761},"marker":{"color":"rgba(102,194,165,1)","line":{"color":"rgba(102,194,165,1)"}},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0,1,2]},{"name":"7","data":[{"y":["Season<br />1"],"x":[30],"type":"bar","frame":"7","ids":["Season<br />1"],"orientation":"h","name":"Season<br />1","textfont":{"color":"rgba(141,160,203,1)","size":28.52941176470588},"error_y":{"color":"rgba(141,160,203,1)","width":28.52941176470588},"error_x":{"color":"rgba(141,160,203,1)","width":28.52941176470588},"marker":{"color":"rgba(141,160,203,1)","line":{"color":"rgba(141,160,203,1)"}},"xaxis":"x","yaxis":"y","visible":true},{"y":["Season<br />2"],"x":[66],"type":"bar","frame":"7","ids":["Season<br />2"],"orientation":"h","name":"Season<br />2","textfont":{"color":"rgba(252,141,98,1)","size":52.352941176470587},"error_y":{"color":"rgba(252,141,98,1)","width":52.352941176470587},"error_x":{"color":"rgba(252,141,98,1)","width":52.352941176470587},"marker":{"color":"rgba(252,141,98,1)","line":{"color":"rgba(252,141,98,1)"}},"xaxis":"x","yaxis":"y","visible":true},{"y":["Season<br />3"],"x":[85],"type":"bar","frame":"7","ids":["Season<br />3"],"orientation":"h","name":"Season<br />3","textfont":{"color":"rgba(102,194,165,1)","size":64.926470588235304},"error_y":{"color":"rgba(102,194,165,1)","width":64.926470588235304},"error_x":{"color":"rgba(102,194,165,1)","width":64.926470588235304},"marker":{"color":"rgba(102,194,165,1)","line":{"color":"rgba(102,194,165,1)"}},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0,1,2]},{"name":"8","data":[{"y":["Season<br />1"],"x":[37],"type":"bar","frame":"8","ids":["Season<br />1"],"orientation":"h","name":"Season<br />1","textfont":{"color":"rgba(141,160,203,1)","size":33.161764705882348},"error_y":{"color":"rgba(141,160,203,1)","width":33.161764705882348},"error_x":{"color":"rgba(141,160,203,1)","width":33.161764705882348},"marker":{"color":"rgba(141,160,203,1)","line":{"color":"rgba(141,160,203,1)"}},"xaxis":"x","yaxis":"y","visible":true},{"y":["Season<br />2"],"x":[71],"type":"bar","frame":"8","ids":["Season<br />2"],"orientation":"h","name":"Season<br />2","textfont":{"color":"rgba(252,141,98,1)","size":55.661764705882348},"error_y":{"color":"rgba(252,141,98,1)","width":55.661764705882348},"error_x":{"color":"rgba(252,141,98,1)","width":55.661764705882348},"marker":{"color":"rgba(252,141,98,1)","line":{"color":"rgba(252,141,98,1)"}},"xaxis":"x","yaxis":"y","visible":true},{"y":["Season<br />3"],"x":[91],"type":"bar","frame":"8","ids":["Season<br />3"],"orientation":"h","name":"Season<br />3","textfont":{"color":"rgba(102,194,165,1)","size":68.89705882352942},"error_y":{"color":"rgba(102,194,165,1)","width":68.89705882352942},"error_x":{"color":"rgba(102,194,165,1)","width":68.89705882352942},"marker":{"color":"rgba(102,194,165,1)","line":{"color":"rgba(102,194,165,1)"}},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0,1,2]},{"name":"9","data":[{"y":["Season<br />1"],"x":[51],"type":"bar","frame":"9","ids":["Season<br />1"],"orientation":"h","name":"Season<br />1","textfont":{"color":"rgba(141,160,203,1)","size":42.426470588235297},"error_y":{"color":"rgba(141,160,203,1)","width":42.426470588235297},"error_x":{"color":"rgba(141,160,203,1)","width":42.426470588235297},"marker":{"color":"rgba(141,160,203,1)","line":{"color":"rgba(141,160,203,1)"}},"xaxis":"x","yaxis":"y","visible":true},{"y":["Season<br />2"],"x":[74],"type":"bar","frame":"9","ids":["Season<br />2"],"orientation":"h","name":"Season<br />2","textfont":{"color":"rgba(252,141,98,1)","size":57.647058823529413},"error_y":{"color":"rgba(252,141,98,1)","width":57.647058823529413},"error_x":{"color":"rgba(252,141,98,1)","width":57.647058823529413},"marker":{"color":"rgba(252,141,98,1)","line":{"color":"rgba(252,141,98,1)"}},"xaxis":"x","yaxis":"y","visible":true},{"y":["Season<br />3"],"x":[104],"type":"bar","frame":"9","ids":["Season<br />3"],"orientation":"h","name":"Season<br />3","textfont":{"color":"rgba(102,194,165,1)","size":77.5},"error_y":{"color":"rgba(102,194,165,1)","width":77.5},"error_x":{"color":"rgba(102,194,165,1)","width":77.5},"marker":{"color":"rgba(102,194,165,1)","line":{"color":"rgba(102,194,165,1)"}},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0,1,2]},{"name":"10","data":[{"y":["Season<br />1"],"x":[56],"type":"bar","frame":"10","ids":["Season<br />1"],"orientation":"h","name":"Season<br />1","textfont":{"color":"rgba(141,160,203,1)","size":45.735294117647058},"error_y":{"color":"rgba(141,160,203,1)","width":45.735294117647058},"error_x":{"color":"rgba(141,160,203,1)","width":45.735294117647058},"marker":{"color":"rgba(141,160,203,1)","line":{"color":"rgba(141,160,203,1)"}},"xaxis":"x","yaxis":"y","visible":true},{"y":["Season<br />2"],"x":[78],"type":"bar","frame":"10","ids":["Season<br />2"],"orientation":"h","name":"Season<br />2","textfont":{"color":"rgba(252,141,98,1)","size":60.294117647058826},"error_y":{"color":"rgba(252,141,98,1)","width":60.294117647058826},"error_x":{"color":"rgba(252,141,98,1)","width":60.294117647058826},"marker":{"color":"rgba(252,141,98,1)","line":{"color":"rgba(252,141,98,1)"}},"xaxis":"x","yaxis":"y","visible":true},{"y":["Season<br />3"],"x":[114],"type":"bar","frame":"10","ids":["Season<br />3"],"orientation":"h","name":"Season<br />3","textfont":{"color":"rgba(102,194,165,1)","size":84.117647058823522},"error_y":{"color":"rgba(102,194,165,1)","width":84.117647058823522},"error_x":{"color":"rgba(102,194,165,1)","width":84.117647058823522},"marker":{"color":"rgba(102,194,165,1)","line":{"color":"rgba(102,194,165,1)"}},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0,1,2]},{"name":"11","data":[{"y":["Season<br />1"],"x":[56],"type":"bar","frame":"11","ids":["Season<br />1"],"orientation":"h","name":"Season<br />1","textfont":{"color":"rgba(141,160,203,1)","size":45.735294117647058},"error_y":{"color":"rgba(141,160,203,1)","width":45.735294117647058},"error_x":{"color":"rgba(141,160,203,1)","width":45.735294117647058},"marker":{"color":"rgba(141,160,203,1)","line":{"color":"rgba(141,160,203,1)"}},"xaxis":"x","yaxis":"y","visible":true},{"y":["Season<br />2"],"x":[83],"type":"bar","frame":"11","ids":["Season<br />2"],"orientation":"h","name":"Season<br />2","textfont":{"color":"rgba(252,141,98,1)","size":63.602941176470587},"error_y":{"color":"rgba(252,141,98,1)","width":63.602941176470587},"error_x":{"color":"rgba(252,141,98,1)","width":63.602941176470587},"marker":{"color":"rgba(252,141,98,1)","line":{"color":"rgba(252,141,98,1)"}},"xaxis":"x","yaxis":"y","visible":true},{"y":["Season<br />3"],"x":[127],"type":"bar","frame":"11","ids":["Season<br />3"],"orientation":"h","name":"Season<br />3","textfont":{"color":"rgba(102,194,165,1)","size":92.720588235294116},"error_y":{"color":"rgba(102,194,165,1)","width":92.720588235294116},"error_x":{"color":"rgba(102,194,165,1)","width":92.720588235294116},"marker":{"color":"rgba(102,194,165,1)","line":{"color":"rgba(102,194,165,1)"}},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0,1,2]},{"name":"12","data":[{"y":["Season<br />1"],"x":[56],"type":"bar","frame":"12","ids":["Season<br />1"],"orientation":"h","name":"Season<br />1","textfont":{"color":"rgba(141,160,203,1)","size":45.735294117647058},"error_y":{"color":"rgba(141,160,203,1)","width":45.735294117647058},"error_x":{"color":"rgba(141,160,203,1)","width":45.735294117647058},"marker":{"color":"rgba(141,160,203,1)","line":{"color":"rgba(141,160,203,1)"}},"xaxis":"x","yaxis":"y","visible":true},{"y":["Season<br />2"],"x":[106],"type":"bar","frame":"12","ids":["Season<br />2"],"orientation":"h","name":"Season<br />2","textfont":{"color":"rgba(252,141,98,1)","size":78.823529411764696},"error_y":{"color":"rgba(252,141,98,1)","width":78.823529411764696},"error_x":{"color":"rgba(252,141,98,1)","width":78.823529411764696},"marker":{"color":"rgba(252,141,98,1)","line":{"color":"rgba(252,141,98,1)"}},"xaxis":"x","yaxis":"y","visible":true},{"y":["Season<br />3"],"x":[138],"type":"bar","frame":"12","ids":["Season<br />3"],"orientation":"h","name":"Season<br />3","textfont":{"color":"rgba(102,194,165,1)","size":100},"error_y":{"color":"rgba(102,194,165,1)","width":100},"error_x":{"color":"rgba(102,194,165,1)","width":100},"marker":{"color":"rgba(102,194,165,1)","line":{"color":"rgba(102,194,165,1)"}},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0,1,2]}],"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p><br></p>
+<p><strong><em>Season 3 ended with a total of 138 F-bombs</em></strong></p>
+</div>
+</section></section><section><section id="by-adding-animation-you-hold-the-tension-in-your-story" class="title-slide slide level1 center"><h1>By adding animation you hold the tension in your story</h1>
+
+</section><section id="code-structure-for-creating-animation-using-plotly" class="slide level2"><h2>Code structure for creating animation using Plotly</h2>
+<p><br></p>
+<h3 id="simple-bar-plot">Simple bar plot</h3>
+<div class="sourceCode" id="cb1" data-echo="TRUE"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
+<span><span class="va">dataset</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">plot_ly</span><span class="op">(</span>y<span class="op">=</span><span class="op">~</span><span class="va">count</span>, x <span class="op">=</span> <span class="op">~</span><span class="va">season</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">add_bars</span><span class="op">(</span>type<span class="op">=</span><span class="st">"bar"</span><span class="op">)</span></span>
+<span>  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><br></p>
+<div class="fragment">
+<!-- -->
+<h3 id="bar-plot-with-animation">Bar plot with animation</h3>
+<div class="sourceCode" id="cb2" data-echo="TRUE"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
+<span><span class="va">dataset</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">plot_ly</span><span class="op">(</span>y<span class="op">=</span><span class="op">~</span><span class="va">count</span>, x <span class="op">=</span> <span class="op">~</span><span class="va">season</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">add_bars</span><span class="op">(</span>frame <span class="op">=</span> <span class="op">~</span><span class="va">Episode</span>, type<span class="op">=</span><span class="st">"bar"</span><span class="op">)</span></span>
+<span>  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="code-structure-for-creating-animation-using-plotly-1" class="slide level2"><h2>Code structure for creating animation using Plotly</h2>
+<p><br></p>
+<h3 id="simple-bar-plot-1">Simple bar plot</h3>
+<div class="sourceCode" id="cb3" data-echo="TRUE"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
+<span><span class="va">dataset</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">plot_ly</span><span class="op">(</span>y<span class="op">=</span><span class="op">~</span><span class="va">count</span>, x <span class="op">=</span> <span class="op">~</span><span class="va">season</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">add_bars</span><span class="op">(</span>type<span class="op">=</span><span class="st">"bar"</span><span class="op">)</span> </span>
+<span>  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><br></p>
+<h3 id="bar-plot-with-animation-1">Bar plot with animation</h3>
+<div class="sourceCode" id="cb4" data-echo="TRUE"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
+<span><span class="va">dataset</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">plot_ly</span><span class="op">(</span>y<span class="op">=</span><span class="op">~</span><span class="va">count</span>, x <span class="op">=</span> <span class="op">~</span><span class="va">season</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">add_bars</span><span class="op">(</span>frame <span class="op">=</span> <span class="op">~</span><span class="va">Episode</span>, type<span class="op">=</span><span class="st">"bar"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">animation_opts</span><span class="op">(</span>frame <span class="op">=</span> <span class="fl">800</span>, transition <span class="op">=</span> <span class="fl">300</span><span class="op">)</span></span>
+<span>  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section></section><section id="interactivity" class="title-slide slide level1 center" data-background-color="#004E4F"><h1>Interactivity</h1>
+
+</section><section id="lets-get-technical-and-talk-about-statistics" class="title-slide slide level1 center"><h1>Let’s get technical and talk about statistics</h1>
+
+</section><section id="lets-get-technical-and-talk-about-statistics---f-score" class="title-slide slide level1 center"><h1>Let’s get technical and talk about statistics - “F-SCORE”</h1>
+
+</section><section><section id="what-is-an-episodes-f-score" class="title-slide slide level1 center" data-text-align="center"><h1>What is an episode’s F-SCORE</h1>
+<p><br></p>
+<div class="fragment">
+<p><br></p>
+<p><span class="math display">\[
+f-score = {Roy Kent  Fbombs / \choose Total  Fbombs}
+\]</span></p>
+</div>
+</section><section id="q2-which-season-has-the-most-episodes-with-f-score-50" class="slide level2"><h2>Q2: Which season has the most episodes with F-Score &gt; 50%?</h2>
+<p><br></p>
+<div class="fragment">
+<p>In non-statistical terms - In how many episodes per season did Roy Kent contribute to more than half the Fbombs?</p>
+<p><br></p>
+<p>And…which season had the highest number of such episodes?</p>
+</div>
+<p><br></p>
+<div class="fragment">
+<!-- -->
+<h3 id="can-you-guess-the-answer">Can you guess the answer?</h3>
+<ul>
+<li><p>Season 1 - Total Fbombs: <strong>56</strong></p></li>
+<li><p>Season 2 - Total Fbombs: <strong>106</strong></p></li>
+<li><p>Season 3 - Total Fbombs: <strong>138</strong></p></li>
+</ul>
+</div>
+</section><section id="we-can-display-f-score-for-each-episode-as-below" class="slide level2"><h2>We can display F-score for each episode as below</h2>
+<div class="fragment">
+<div class="cell">
+<div class="cell-output-display">
+<div class="container-fluid crosstalk-bscols">
+<div class="row">
+<div class="col-xs-2"></div>
+<div class="col-xs-10">
+<div id="htmlwidget-580120bf5c338be9843a" style="width:1200px;height:800px;" class="plotly html-widget "></div>
+<script type="application/json" data-for="htmlwidget-580120bf5c338be9843a">{"x":{"visdat":{"66987b78507f":["function () ","plotlyVisDat"]},"cur_data":"66987b78507f","attrs":{"66987b78507f":{"x":{},"y":{},"text":{},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar","inherit":true}},"layout":{"width":1200,"height":800,"margin":{"b":40,"l":60,"t":25,"r":10},"xaxis":{"domain":[0,1],"automargin":true,"title":"","type":"category","categoryorder":"array","categoryarray":["S1_e1","S1_e10","S1_e2","S1_e3","S1_e4","S1_e5","S1_e6","S1_e7","S1_e8","S1_e9","S2_e1","S2_e10","S2_e11","S2_e12","S2_e2","S2_e3","S2_e4","S2_e5","S2_e6","S2_e7","S2_e8","S2_e9","S3_e1","S3_e10","S3_e11","S3_e12","S3_e2","S3_e3","S3_e4","S3_e5","S3_e6","S3_e7","S3_e8","S3_e9"]},"yaxis":{"domain":[0,1],"automargin":true,"title":""},"title":"F-score by episode and season","hovermode":"closest","showlegend":false},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":["S1_e1","S1_e2","S1_e3","S1_e4","S1_e5","S1_e6","S1_e7","S1_e8","S1_e9","S1_e10","S2_e1","S2_e2","S2_e3","S2_e4","S2_e5","S2_e6","S2_e7","S2_e8","S2_e9","S2_e10","S2_e11","S2_e12","S3_e1","S3_e2","S3_e3","S3_e4","S3_e5","S3_e6","S3_e7","S3_e8","S3_e9","S3_e10","S3_e11","S3_e12"],"y":[15.384615384615385,25,53.846153846153847,47.058823529411761,30.76923076923077,22.222222222222221,33.333333333333329,38.888888888888893,63.636363636363633,22.727272727272727,68.75,45.454545454545453,25,33.333333333333329,71.875,66.666666666666657,40,29.411764705882355,25,30.76923076923077,41.666666666666671,52.272727272727273,35.294117647058826,51.612903225806448,40,40.476190476190474,36.111111111111107,61.904761904761905,33.333333333333329,23.076923076923077,28.260869565217391,55.555555555555557,28.260869565217391,28.205128205128204],"text":["S1_e1","S1_e2","S1_e3","S1_e4","S1_e5","S1_e6","S1_e7","S1_e8","S1_e9","S1_e10","S2_e1","S2_e2","S2_e3","S2_e4","S2_e5","S2_e6","S2_e7","S2_e8","S2_e9","S2_e10","S2_e11","S2_e12","S3_e1","S3_e2","S3_e3","S3_e4","S3_e5","S3_e6","S3_e7","S3_e8","S3_e9","S3_e10","S3_e11","S3_e12"],"type":"bar","marker":{"color":"rgba(31,119,180,1)","line":{"color":"rgba(31,119,180,1)"}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section><section id="or-we-can-add-a-season-checkbox-to-make-it-easier-to-read" class="slide level2"><h2>Or we can add a “season” checkbox to make it easier to read</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div class="container-fluid crosstalk-bscols">
+<div class="row">
+<div class="col-xs-1"> </div>
+<div class="col-xs-1">
+<div id="Season" class="form-group crosstalk-input-checkboxgroup crosstalk-input">
+<label class="control-label" for="Season">Season</label>
+<div class="crosstalk-options-group">
+<div class="checkbox">
+<label>
+<input type="checkbox" name="Season" value="1"><span>1</span>
+</label>
+</div>
+<div class="checkbox">
+<label>
+<input type="checkbox" name="Season" value="2"><span>2</span>
+</label>
+</div>
+<div class="checkbox">
+<label>
+<input type="checkbox" name="Season" value="3"><span>3</span>
+</label>
+</div>
+</div>
+<script type="application/json" data-for="Season">{
+  "map": {
+    "1": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
+    "2": ["11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22"],
+    "3": ["23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34"]
+  },
+  "group": ["SharedDatabf3a21f0"]
+}</script>
+</div>
+</div>
+<div class="col-xs-10">
+<div id="htmlwidget-41c410e47d61435a1246" style="width:1200px;height:800px;" class="plotly html-widget "></div>
+<script type="application/json" data-for="htmlwidget-41c410e47d61435a1246">{"x":{"visdat":{"6698ad69f2":["function () ","plotlyVisDat"]},"cur_data":"6698ad69f2","attrs":{"6698ad69f2":{"x":{},"y":{},"text":{},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar","inherit":true}},"layout":{"width":1200,"height":800,"margin":{"b":40,"l":60,"t":25,"r":10},"xaxis":{"domain":[0,1],"automargin":true,"title":"","type":"category","categoryorder":"array","categoryarray":["S1_e1","S1_e10","S1_e2","S1_e3","S1_e4","S1_e5","S1_e6","S1_e7","S1_e8","S1_e9","S2_e1","S2_e10","S2_e11","S2_e12","S2_e2","S2_e3","S2_e4","S2_e5","S2_e6","S2_e7","S2_e8","S2_e9","S3_e1","S3_e10","S3_e11","S3_e12","S3_e2","S3_e3","S3_e4","S3_e5","S3_e6","S3_e7","S3_e8","S3_e9"]},"yaxis":{"domain":[0,1],"automargin":true,"title":""},"title":"F-score by episode and season","dragmode":"zoom","hovermode":"closest","showlegend":false},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":["S1_e1","S1_e2","S1_e3","S1_e4","S1_e5","S1_e6","S1_e7","S1_e8","S1_e9","S1_e10","S2_e1","S2_e2","S2_e3","S2_e4","S2_e5","S2_e6","S2_e7","S2_e8","S2_e9","S2_e10","S2_e11","S2_e12","S3_e1","S3_e2","S3_e3","S3_e4","S3_e5","S3_e6","S3_e7","S3_e8","S3_e9","S3_e10","S3_e11","S3_e12"],"y":[15.384615384615385,25,53.846153846153847,47.058823529411761,30.76923076923077,22.222222222222221,33.333333333333329,38.888888888888893,63.636363636363633,22.727272727272727,68.75,45.454545454545453,25,33.333333333333329,71.875,66.666666666666657,40,29.411764705882355,25,30.76923076923077,41.666666666666671,52.272727272727273,35.294117647058826,51.612903225806448,40,40.476190476190474,36.111111111111107,61.904761904761905,33.333333333333329,23.076923076923077,28.260869565217391,55.555555555555557,28.260869565217391,28.205128205128204],"text":["S1_e1","S1_e2","S1_e3","S1_e4","S1_e5","S1_e6","S1_e7","S1_e8","S1_e9","S1_e10","S2_e1","S2_e2","S2_e3","S2_e4","S2_e5","S2_e6","S2_e7","S2_e8","S2_e9","S2_e10","S2_e11","S2_e12","S3_e1","S3_e2","S3_e3","S3_e4","S3_e5","S3_e6","S3_e7","S3_e8","S3_e9","S3_e10","S3_e11","S3_e12"],"type":"bar","key":["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34"],"set":"SharedDatabf3a21f0","marker":{"color":"rgba(31,119,180,1)","line":{"color":"rgba(31,119,180,1)"}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","_isNestedKey":false,"frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0,"ctGroups":["SharedDatabf3a21f0"]},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section></section><section><section id="through-interactivity-you-can-add-layers-and-control-the-ease-of-how-the-insight-is-derived" class="title-slide slide level1 center"><h1>Through interactivity you can add layers and control the ease of how the insight is derived</h1>
+
+</section><section id="code-structure-for-adding-interativity-with-crosstalk" class="slide level2"><h2>Code structure for adding interativity with Crosstalk</h2>
+<p><br></p>
+<h3 id="simple-bar-plot-2">Simple bar plot</h3>
+<div class="sourceCode" id="cb5" data-echo="TRUE"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dataset</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">plot_ly</span><span class="op">(</span>y<span class="op">=</span><span class="op">~</span><span class="va">F_score</span>, x <span class="op">=</span> <span class="op">~</span><span class="va">episode</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">add_bars</span><span class="op">(</span>type<span class="op">=</span><span class="st">"bar"</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><br></p>
+<div class="fragment">
+<!-- -->
+<h3 id="bar-plot-with-interativity">Bar plot with interativity</h3>
+<div class="sourceCode" id="cb6" data-echo="TRUE"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">shared_data</span> <span class="op">&lt;-</span> <span class="va">dataset</span> <span class="op">|&gt;</span> <span class="va">SharedData</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="code-structure-for-adding-interativity-with-crosstalk-1" class="slide level2"><h2>Code structure for adding interativity with Crosstalk</h2>
+<p><br></p>
+<h3 id="simple-bar-plot-3">Simple bar plot</h3>
+<div class="sourceCode" id="cb7" data-echo="TRUE"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dataset</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">plot_ly</span><span class="op">(</span>y<span class="op">=</span><span class="op">~</span><span class="va">F_score</span>, x <span class="op">=</span> <span class="op">~</span><span class="va">episode</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">add_bars</span><span class="op">(</span>type<span class="op">=</span><span class="st">"bar"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><br></p>
+<h3 id="bar-plot-with-interativity-1">Bar plot with interativity</h3>
+<div class="sourceCode" id="cb8" data-echo="TRUE"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">shared_data</span> <span class="op">&lt;-</span> <span class="va">dataset</span> <span class="op">|&gt;</span> <span class="va">SharedData</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">plot</span> <span class="op">&lt;-</span> <span class="va">shared_data</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">plot_ly</span><span class="op">(</span>y<span class="op">=</span><span class="op">~</span><span class="va">F_score</span>, x <span class="op">=</span> <span class="op">~</span><span class="va">episode</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">add_bars</span><span class="op">(</span>type<span class="op">=</span><span class="st">"bar"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section><section id="code-structure-for-adding-interativity-with-crosstalk-2" class="slide level2"><h2>Code structure for adding interativity with Crosstalk</h2>
+<p><br></p>
+<h3 id="simple-bar-plot-4">Simple bar plot</h3>
+<div class="sourceCode" id="cb9" data-echo="TRUE"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dataset</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">plot_ly</span><span class="op">(</span>y<span class="op">=</span><span class="op">~</span><span class="va">F_score</span>, x <span class="op">=</span> <span class="op">~</span><span class="va">episode</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">add_bars</span><span class="op">(</span>type<span class="op">=</span><span class="st">"bar"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><br></p>
+<h3 id="bar-plot-with-interativity-2">Bar plot with interativity</h3>
+<div class="sourceCode" id="cb10" data-echo="TRUE"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">shared_data</span> <span class="op">&lt;-</span> <span class="va">dataset</span> <span class="op">|&gt;</span> <span class="va">SharedData</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">plot</span> <span class="op">&lt;-</span> <span class="va">shared_data</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">plot_ly</span><span class="op">(</span>y<span class="op">=</span><span class="op">~</span><span class="va">F_score</span>, x <span class="op">=</span> <span class="op">~</span><span class="va">episode</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">add_bars</span><span class="op">(</span>type<span class="op">=</span><span class="st">"bar"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">bscols</span><span class="op">(</span>widths <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">10</span><span class="op">)</span>,</span>
+<span>       <span class="fu">filter_checkbox</span><span class="op">(</span></span>
+<span>          id <span class="op">=</span> <span class="st">"Season"</span>, </span>
+<span>          label <span class="op">=</span> <span class="st">"Season"</span>, </span>
+<span>          sharedData <span class="op">=</span> <span class="va">shared_data</span>,  </span>
+<span>          group <span class="op">=</span> <span class="op">~</span><span class="va">Season</span></span>
+<span>      <span class="op">)</span>, </span>
+<span>      <span class="va">plot</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section></section><section id="linking" class="title-slide slide level1 center" data-background-color="#004E4F"><h1>Linking</h1>
+
+</section><section><section id="q3-did-roy-kent-have-a-lower-average-f-score-while-dating-keeley-or-while-he-was-coaching" class="title-slide slide level1 center"><h1>Q3: Did Roy Kent have a lower average F-score while dating Keeley or while he was coaching?</h1>
+
+</section><section id="we-can-use-a-bar-plot-to-display-average-f-score" class="slide level2"><h2>We can use a bar plot to display average F-Score</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<div class="fragment">
+<div class="cell">
+<div class="cell-output-display">
+<div id="htmlwidget-441b5652cc9d2be6c381" style="width:900px;height:800px;" class="plotly html-widget "></div>
+<script type="application/json" data-for="htmlwidget-441b5652cc9d2be6c381">{"x":{"visdat":{"66985def8f7":["function () ","plotlyVisDat"],"66986f5821f9":["function () ","data"],"6698443a2cbd":["function () ","data"]},"cur_data":"6698443a2cbd","attrs":{"6698443a2cbd":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":{},"y":{},"type":"bar","inherit":true}},"layout":{"width":900,"height":800,"margin":{"b":40,"l":60,"t":25,"r":10},"barmode":"overlay","xaxis":{"domain":[0,1],"automargin":true,"title":"avg.fscore"},"yaxis":{"domain":[0,1],"automargin":true,"title":"Dating_Coaching_flag","type":"category","categoryorder":"array","categoryarray":["Coaching","Dating","Dating & Coaching","Neither"]},"hovermode":"closest","showlegend":false},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},".hideLegend":true,"data":[{"x":[0.38507646972191978,0.42541486291486291,0.44707757010146715,0.32516339869281047],"y":["Coaching","Dating","Dating & Coaching","Neither"],"type":"bar","orientation":"h","marker":{"color":"rgba(31,119,180,1)","line":{"color":"rgba(31,119,180,1)"}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:40%;">
+<p><br></p>
+<div class="fragment">
+<p>This is just fine… but as Roy Kent said -</p>
+</div>
+<p><br></p>
+<div class="fragment">
+<div class="quarto-figure quarto-figure-center">
+<figure><p><img data-src="Images/rk_dont_settle_for_fine2.gif" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section></section><section><section id="so-lets-enable-additional-insights-by-linking-it-to-another-plot" class="title-slide slide level1 center"><h1>So, let’s enable additional insights by linking it to another plot</h1>
+
+</section><section id="section-4" class="slide level2"><h2></h2>
+<div class="cell">
+<div class="cell-output-display">
+<div id="htmlwidget-c6056fca40d342848344" style="width:1500px;height:800px;" class="plotly html-widget "></div>
+<script type="application/json" data-for="htmlwidget-c6056fca40d342848344">{"x":{"data":[{"x":[0.38507646972191978,0.42541486291486291,0.44707757010146715,0.32516339869281047],"y":["Coaching","Dating","Dating & Coaching","Neither"],"type":"bar","orientation":"h","key":["Coaching","Dating","Dating & Coaching","Neither"],"set":"SharedDatab8edc19d","marker":{"color":"rgba(31,119,180,1)","line":{"color":"rgba(31,119,180,1)"}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","_isNestedKey":false,"frame":null},{"x":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34],"y":[2,2,7,8,4,2,5,7,14,5,11,10,2,2,23,12,6,5,3,4,5,23,6,16,10,17,13,13,10,6,13,10,13,11],"text":["S1_e1","S1_e2","S1_e3","S1_e4","S1_e5","S1_e6","S1_e7","S1_e8","S1_e9","S1_e10","S2_e1","S2_e2","S2_e3","S2_e4","S2_e5","S2_e6","S2_e7","S2_e8","S2_e9","S2_e10","S2_e11","S2_e12","S3_e1","S3_e2","S3_e3","S3_e4","S3_e5","S3_e6","S3_e7","S3_e8","S3_e9","S3_e10","S3_e11","S3_e12"],"type":"bar","key":["Neither","Neither","Neither","Neither","Neither","Neither","Neither","Dating","Dating","Dating","Dating","Dating","Dating","Dating","Dating & Coaching","Dating & Coaching","Dating & Coaching","Dating & Coaching","Dating & Coaching","Dating & Coaching","Dating & Coaching","Dating & Coaching","Coaching","Coaching","Coaching","Coaching","Coaching","Coaching","Coaching","Coaching","Coaching","Coaching","Coaching","Coaching"],"set":"SharedDatab8edc19d","marker":{"color":"rgba(255,127,14,1)","line":{"color":"rgba(255,127,14,1)"}},"error_y":{"color":"rgba(255,127,14,1)"},"error_x":{"color":"rgba(255,127,14,1)"},"xaxis":"x2","yaxis":"y2","_isNestedKey":false,"frame":null}],"layout":{"xaxis":{"domain":[0,0.47999999999999998],"automargin":true,"anchor":"y"},"xaxis2":{"domain":[0.52000000000000002,1],"automargin":true,"anchor":"y2"},"yaxis2":{"domain":[0,1],"automargin":true,"anchor":"x2"},"yaxis":{"domain":[0,1],"automargin":true,"type":"category","categoryorder":"array","categoryarray":["Coaching","Dating","Dating & Coaching","Neither"],"anchor":"x"},"annotations":[],"shapes":[],"images":[],"width":1500,"height":800,"margin":{"b":40,"l":60,"t":25,"r":10},"barmode":"overlay","dragmode":"zoom","hovermode":"closest","showlegend":false},"attrs":{"66982699452a":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":{},"y":{},"type":"bar","inherit":true},"669818eb287c":{"x":{},"y":{},"text":{},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar","inherit":true}},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"highlight":{"on":"plotly_click","off":"plotly_doubleclick","persistent":true,"dynamic":true,"color":["rgba(228,26,28,1)","rgba(55,126,184,1)","rgba(77,175,74,1)","rgba(152,78,163,1)"],"selectize":false,"defaultValues":null,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0,"ctGroups":["SharedDatab8edc19d"]},"subplot":true,".hideLegend":true,"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</section></section><section><section id="through-linking-you-can-give-control-to-your-stakeholders-so-they-can-arrive-at-their-own-insights" class="title-slide slide level1 center"><h1>Through linking you can give control to your stakeholders so they can arrive at their own insights</h1>
+
+</section><section id="code-structure-for-linking-two-plots" class="slide level2"><h2>Code structure for linking two plots</h2>
+<p><br></p>
+<div class="fragment">
+<div class="sourceCode" id="cb11" data-echo="TRUE"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">shared_data</span> <span class="op">&lt;-</span> <span class="va">dataset</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="va">SharedData</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>key<span class="op">=</span><span class="op">~</span><span class="va">Dating_Coaching_flag</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="code-structure-for-linking-two-plots-1" class="slide level2"><h2>Code structure for linking two plots</h2>
+<p><br></p>
+<div class="sourceCode" id="cb12" data-echo="TRUE"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">shared_data</span> <span class="op">&lt;-</span> <span class="va">dataset</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="va">SharedData</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>key<span class="op">=</span><span class="op">~</span><span class="va">Dating_Coaching_flag</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">plot1</span> <span class="op">&lt;-</span> <span class="va">shared_data</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">plot_ly</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">Dating_Coaching_flag</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">summarise</span><span class="op">(</span>avg.fscore <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">F_score</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">add_bars</span><span class="op">(</span>y <span class="op">=</span> <span class="op">~</span><span class="va">Dating_Coaching_flag</span>, x <span class="op">=</span> <span class="op">~</span><span class="va">avg.fscore</span>, type<span class="op">=</span><span class="st">"bar"</span><span class="op">)</span></span>
+<span>  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section><section id="code-structure-for-linking-two-plots-2" class="slide level2"><h2>Code structure for linking two plots</h2>
+<p><br></p>
+<div class="sourceCode" id="cb13" data-echo="TRUE"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">shared_data</span> <span class="op">&lt;-</span> <span class="va">dataset</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="va">SharedData</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>key<span class="op">=</span><span class="op">~</span><span class="va">Dating_Coaching_flag</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">plot1</span> <span class="op">&lt;-</span> <span class="va">shared_data</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">plot_ly</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">Dating_Coaching_flag</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">summarise</span><span class="op">(</span>avg.fscore <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">F_score</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">add_bars</span><span class="op">(</span>y <span class="op">=</span> <span class="op">~</span><span class="va">Dating_Coaching_flag</span>, x <span class="op">=</span> <span class="op">~</span><span class="va">avg.fscore</span>, type<span class="op">=</span><span class="st">"bar"</span><span class="op">)</span></span>
+<span>  </span>
+<span><span class="va">plot2</span> <span class="op">&lt;-</span> <span class="va">shared_data</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">plot_ly</span><span class="op">(</span>x <span class="op">=</span> <span class="op">~</span><span class="va">Episode</span>, y <span class="op">=</span> <span class="op">~</span><span class="va">F_count</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">add_bars</span><span class="op">(</span>type<span class="op">=</span><span class="st">"bar"</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section><section id="code-structure-for-linking-two-plots-3" class="slide level2"><h2>Code structure for linking two plots</h2>
+<p><br></p>
+<div class="sourceCode" id="cb14" data-echo="TRUE"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">shared_data</span> <span class="op">&lt;-</span> <span class="va">dataset</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="va">SharedData</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>key<span class="op">=</span><span class="op">~</span><span class="va">Dating_Coaching_flag</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">plot1</span> <span class="op">&lt;-</span> <span class="va">shared_data</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">plot_ly</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">Dating_Coaching_flag</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">summarise</span><span class="op">(</span>avg.fscore <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">F_score</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">add_bars</span><span class="op">(</span>y <span class="op">=</span> <span class="op">~</span><span class="va">Dating_Coaching_flag</span>, x <span class="op">=</span> <span class="op">~</span><span class="va">avg.fscore</span>, type<span class="op">=</span><span class="st">"bar"</span><span class="op">)</span></span>
+<span>  </span>
+<span><span class="va">plot2</span> <span class="op">&lt;-</span> <span class="va">shared_data</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">plot_ly</span><span class="op">(</span>x <span class="op">=</span> <span class="op">~</span><span class="va">Episode</span>, y <span class="op">=</span> <span class="op">~</span><span class="va">F_count</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">add_bars</span><span class="op">(</span>type<span class="op">=</span><span class="st">"bar"</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="fu">subplot</span><span class="op">(</span><span class="va">p1</span>,<span class="va">p2</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">highlight</span><span class="op">(</span>persistent <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>            , on <span class="op">=</span> <span class="st">"plotly_click"</span></span>
+<span>            , off <span class="op">=</span> <span class="st">"plotly_doubleclick"</span></span>
+<span>            , dynamic <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>            <span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section></section><section id="now-that-you-have-these-tools" class="title-slide slide level1 center"><h1>Now that you have these tools…</h1>
+
+</section><section><section id="lets-combine-animation-and-interactivity-and-linking---all-together" class="title-slide slide level1 center"><h1>Let’s combine Animation and Interactivity and Linking - all together!!!</h1>
+<div class="fragment">
+<p>In other words, what not to do!!</p>
+</div>
+</section><section id="disclaimer-not-recommended" class="slide level2"><h2>Disclaimer: Not recommended…</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div class="container-fluid crosstalk-bscols">
+<div class="row">
+<div class="col-xs-1"></div>
+<div class="col-xs-1">
+<div id="Season" class="form-group crosstalk-input-checkboxgroup crosstalk-input">
+<label class="control-label" for="Season">Season</label>
+<div class="crosstalk-options-group">
+<div class="checkbox">
+<label>
+<input type="checkbox" name="Season" value="1"><span>1</span>
+</label>
+</div>
+<div class="checkbox">
+<label>
+<input type="checkbox" name="Season" value="2"><span>2</span>
+</label>
+</div>
+<div class="checkbox">
+<label>
+<input type="checkbox" name="Season" value="3"><span>3</span>
+</label>
+</div>
+</div>
+<script type="application/json" data-for="Season">{
+  "map": {
+    "1": ["S1_e1", "S1_e2", "S1_e3", "S1_e4", "S1_e5", "S1_e6", "S1_e7", "S1_e8", "S1_e9", "S1_e10"],
+    "2": ["S2_e1", "S2_e2", "S2_e3", "S2_e4", "S2_e5", "S2_e6", "S2_e7", "S2_e8", "S2_e9", "S2_e10", "S2_e11", "S2_e12"],
+    "3": ["S3_e1", "S3_e2", "S3_e3", "S3_e4", "S3_e5", "S3_e6", "S3_e7", "S3_e8", "S3_e9", "S3_e10", "S3_e11", "S3_e12"]
+  },
+  "group": ["SharedData3eae7b5d"]
+}</script>
+</div>
+</div>
+<div class="col-xs-10">
+<div id="htmlwidget-61d4bb535d1841e23605" style="width:1200px;height:800px;" class="plotly html-widget "></div>
+<script type="application/json" data-for="htmlwidget-61d4bb535d1841e23605">{"x":{"data":[{"x":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34],"y":[2,2,7,8,4,2,5,7,14,5,11,10,2,2,23,12,6,5,3,4,5,23,6,16,10,17,13,13,10,6,13,10,13,11],"text":["S1_e1","S1_e2","S1_e3","S1_e4","S1_e5","S1_e6","S1_e7","S1_e8","S1_e9","S1_e10","S2_e1","S2_e2","S2_e3","S2_e4","S2_e5","S2_e6","S2_e7","S2_e8","S2_e9","S2_e10","S2_e11","S2_e12","S3_e1","S3_e2","S3_e3","S3_e4","S3_e5","S3_e6","S3_e7","S3_e8","S3_e9","S3_e10","S3_e11","S3_e12"],"type":"bar","key":["S1_e1","S1_e2","S1_e3","S1_e4","S1_e5","S1_e6","S1_e7","S1_e8","S1_e9","S1_e10","S2_e1","S2_e2","S2_e3","S2_e4","S2_e5","S2_e6","S2_e7","S2_e8","S2_e9","S2_e10","S2_e11","S2_e12","S3_e1","S3_e2","S3_e3","S3_e4","S3_e5","S3_e6","S3_e7","S3_e8","S3_e9","S3_e10","S3_e11","S3_e12"],"set":"SharedData3eae7b5d","marker":{"color":"rgba(31,119,180,1)","line":{"color":"rgba(31,119,180,1)"}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","_isNestedKey":false,"frame":null},{"x":[1,2,3,4,5,6,7,8,9,10],"y":[2,2,7,8,4,2,5,7,14,5],"text":["S1_e1","S1_e2","S1_e3","S1_e4","S1_e5","S1_e6","S1_e7","S1_e8","S1_e9","S1_e10"],"type":"bar","frame":"1","key":["S1_e1","S1_e2","S1_e3","S1_e4","S1_e5","S1_e6","S1_e7","S1_e8","S1_e9","S1_e10"],"set":"SharedData3eae7b5d","marker":{"color":"rgba(255,127,14,1)","line":{"color":"rgba(255,127,14,1)"}},"error_y":{"color":"rgba(255,127,14,1)"},"error_x":{"color":"rgba(255,127,14,1)"},"xaxis":"x","yaxis":"y","_isNestedKey":false,"visible":true},{"x":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34],"y":[15.384615384615385,25,53.846153846153847,47.058823529411761,30.76923076923077,22.222222222222221,33.333333333333329,38.888888888888893,63.636363636363633,22.727272727272727,68.75,45.454545454545453,25,33.333333333333329,71.875,66.666666666666657,40,29.411764705882355,25,30.76923076923077,41.666666666666671,52.272727272727273,35.294117647058826,51.612903225806448,40,40.476190476190474,36.111111111111107,61.904761904761905,33.333333333333329,23.076923076923077,28.260869565217391,55.555555555555557,28.260869565217391,28.205128205128204],"text":["S1_e1","S1_e2","S1_e3","S1_e4","S1_e5","S1_e6","S1_e7","S1_e8","S1_e9","S1_e10","S2_e1","S2_e2","S2_e3","S2_e4","S2_e5","S2_e6","S2_e7","S2_e8","S2_e9","S2_e10","S2_e11","S2_e12","S3_e1","S3_e2","S3_e3","S3_e4","S3_e5","S3_e6","S3_e7","S3_e8","S3_e9","S3_e10","S3_e11","S3_e12"],"type":"bar","key":["S1_e1","S1_e2","S1_e3","S1_e4","S1_e5","S1_e6","S1_e7","S1_e8","S1_e9","S1_e10","S2_e1","S2_e2","S2_e3","S2_e4","S2_e5","S2_e6","S2_e7","S2_e8","S2_e9","S2_e10","S2_e11","S2_e12","S3_e1","S3_e2","S3_e3","S3_e4","S3_e5","S3_e6","S3_e7","S3_e8","S3_e9","S3_e10","S3_e11","S3_e12"],"set":"SharedData3eae7b5d","marker":{"color":"rgba(44,160,44,1)","line":{"color":"rgba(44,160,44,1)"}},"error_y":{"color":"rgba(44,160,44,1)"},"error_x":{"color":"rgba(44,160,44,1)"},"xaxis":"x2","yaxis":"y2","_isNestedKey":false,"frame":null},{"x":[1,2,3,4,5,6,7,8,9,10],"y":[15.384615384615385,25,53.846153846153847,47.058823529411761,30.76923076923077,22.222222222222221,33.333333333333329,38.888888888888893,63.636363636363633,22.727272727272727],"text":["S1_e1","S1_e2","S1_e3","S1_e4","S1_e5","S1_e6","S1_e7","S1_e8","S1_e9","S1_e10"],"type":"bar","frame":"1","key":["S1_e1","S1_e2","S1_e3","S1_e4","S1_e5","S1_e6","S1_e7","S1_e8","S1_e9","S1_e10"],"set":"SharedData3eae7b5d","marker":{"color":"rgba(214,39,40,1)","line":{"color":"rgba(214,39,40,1)"}},"error_y":{"color":"rgba(214,39,40,1)"},"error_x":{"color":"rgba(214,39,40,1)"},"xaxis":"x2","yaxis":"y2","_isNestedKey":false,"visible":true}],"layout":{"xaxis":{"domain":[0,0.47999999999999998],"automargin":true,"anchor":"y","range":[-0.65000000000000013,35.649999999999999]},"xaxis2":{"domain":[0.52000000000000002,1],"automargin":true,"anchor":"y2"},"yaxis2":{"domain":[0,1],"automargin":true,"anchor":"x2"},"yaxis":{"domain":[0,1],"automargin":true,"anchor":"x","range":[-1.4937500000000004,75.368750000000006]},"annotations":[],"shapes":[],"images":[],"width":1200,"height":800,"margin":{"b":40,"l":60,"t":25,"r":10},"barmode":"overlay","dragmode":"zoom","hovermode":"closest","showlegend":false,"sliders":[{"currentvalue":{"prefix":"Season: ","xanchor":"right","font":{"size":16,"color":"rgba(204,204,204,1)"}},"steps":[{"method":"animate","args":[["1"],{"transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":true},"mode":"immediate"}],"label":"1","value":"1"},{"method":"animate","args":[["2"],{"transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":true},"mode":"immediate"}],"label":"2","value":"2"},{"method":"animate","args":[["3"],{"transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":true},"mode":"immediate"}],"label":"3","value":"3"}],"visible":true,"pad":{"t":40}}],"updatemenus":[{"type":"buttons","direction":"right","showactive":false,"y":0,"x":0,"yanchor":"top","xanchor":"right","pad":{"t":60,"r":5},"buttons":[{"label":"Play","method":"animate","args":[null,{"fromcurrent":true,"mode":"immediate","transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":true}}]}]}]},"attrs":{"6698437c1475":{"x":{},"y":{},"text":{},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar"},"6698437c1475.1":{"x":{},"y":{},"text":{},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar","frame":{},"inherit":true},"6698110d66c":{"x":{},"y":{},"text":{},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar"},"6698110d66c.1":{"x":{},"y":{},"text":{},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar","frame":{},"inherit":true}},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"highlight":{"on":"plotly_click","off":"plotly_doubleclick","persistent":true,"dynamic":false,"color":null,"selectize":false,"defaultValues":null,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0,"ctGroups":["SharedData3eae7b5d"]},"subplot":true,".hideLegend":true,"frames":[{"name":"1","data":[{"x":[1,2,3,4,5,6,7,8,9,10],"y":[2,2,7,8,4,2,5,7,14,5],"text":["S1_e1","S1_e2","S1_e3","S1_e4","S1_e5","S1_e6","S1_e7","S1_e8","S1_e9","S1_e10"],"type":"bar","frame":"1","key":["S1_e1","S1_e2","S1_e3","S1_e4","S1_e5","S1_e6","S1_e7","S1_e8","S1_e9","S1_e10"],"set":"SharedData3eae7b5d","marker":{"color":"rgba(255,127,14,1)","line":{"color":"rgba(255,127,14,1)"}},"error_y":{"color":"rgba(255,127,14,1)"},"error_x":{"color":"rgba(255,127,14,1)"},"xaxis":"x","yaxis":"y","_isNestedKey":false,"visible":true},{"x":[1,2,3,4,5,6,7,8,9,10],"y":[15.384615384615385,25,53.846153846153847,47.058823529411761,30.76923076923077,22.222222222222221,33.333333333333329,38.888888888888893,63.636363636363633,22.727272727272727],"text":["S1_e1","S1_e2","S1_e3","S1_e4","S1_e5","S1_e6","S1_e7","S1_e8","S1_e9","S1_e10"],"type":"bar","frame":"1","key":["S1_e1","S1_e2","S1_e3","S1_e4","S1_e5","S1_e6","S1_e7","S1_e8","S1_e9","S1_e10"],"set":"SharedData3eae7b5d","marker":{"color":"rgba(214,39,40,1)","line":{"color":"rgba(214,39,40,1)"}},"error_y":{"color":"rgba(214,39,40,1)"},"error_x":{"color":"rgba(214,39,40,1)"},"xaxis":"x2","yaxis":"y2","_isNestedKey":false,"visible":true}],"traces":[1,3]},{"name":"2","data":[{"x":[11,12,13,14,15,16,17,18,19,20,21,22],"y":[11,10,2,2,23,12,6,5,3,4,5,23],"text":["S2_e1","S2_e2","S2_e3","S2_e4","S2_e5","S2_e6","S2_e7","S2_e8","S2_e9","S2_e10","S2_e11","S2_e12"],"type":"bar","frame":"2","key":["S2_e1","S2_e2","S2_e3","S2_e4","S2_e5","S2_e6","S2_e7","S2_e8","S2_e9","S2_e10","S2_e11","S2_e12"],"set":"SharedData3eae7b5d","marker":{"color":"rgba(255,127,14,1)","line":{"color":"rgba(255,127,14,1)"}},"error_y":{"color":"rgba(255,127,14,1)"},"error_x":{"color":"rgba(255,127,14,1)"},"xaxis":"x","yaxis":"y","_isNestedKey":false,"visible":true},{"x":[11,12,13,14,15,16,17,18,19,20,21,22],"y":[68.75,45.454545454545453,25,33.333333333333329,71.875,66.666666666666657,40,29.411764705882355,25,30.76923076923077,41.666666666666671,52.272727272727273],"text":["S2_e1","S2_e2","S2_e3","S2_e4","S2_e5","S2_e6","S2_e7","S2_e8","S2_e9","S2_e10","S2_e11","S2_e12"],"type":"bar","frame":"2","key":["S2_e1","S2_e2","S2_e3","S2_e4","S2_e5","S2_e6","S2_e7","S2_e8","S2_e9","S2_e10","S2_e11","S2_e12"],"set":"SharedData3eae7b5d","marker":{"color":"rgba(214,39,40,1)","line":{"color":"rgba(214,39,40,1)"}},"error_y":{"color":"rgba(214,39,40,1)"},"error_x":{"color":"rgba(214,39,40,1)"},"xaxis":"x2","yaxis":"y2","_isNestedKey":false,"visible":true}],"traces":[1,3]},{"name":"3","data":[{"x":[23,24,25,26,27,28,29,30,31,32,33,34],"y":[6,16,10,17,13,13,10,6,13,10,13,11],"text":["S3_e1","S3_e2","S3_e3","S3_e4","S3_e5","S3_e6","S3_e7","S3_e8","S3_e9","S3_e10","S3_e11","S3_e12"],"type":"bar","frame":"3","key":["S3_e1","S3_e2","S3_e3","S3_e4","S3_e5","S3_e6","S3_e7","S3_e8","S3_e9","S3_e10","S3_e11","S3_e12"],"set":"SharedData3eae7b5d","marker":{"color":"rgba(255,127,14,1)","line":{"color":"rgba(255,127,14,1)"}},"error_y":{"color":"rgba(255,127,14,1)"},"error_x":{"color":"rgba(255,127,14,1)"},"xaxis":"x","yaxis":"y","_isNestedKey":false,"visible":true},{"x":[23,24,25,26,27,28,29,30,31,32,33,34],"y":[35.294117647058826,51.612903225806448,40,40.476190476190474,36.111111111111107,61.904761904761905,33.333333333333329,23.076923076923077,28.260869565217391,55.555555555555557,28.260869565217391,28.205128205128204],"text":["S3_e1","S3_e2","S3_e3","S3_e4","S3_e5","S3_e6","S3_e7","S3_e8","S3_e9","S3_e10","S3_e11","S3_e12"],"type":"bar","frame":"3","key":["S3_e1","S3_e2","S3_e3","S3_e4","S3_e5","S3_e6","S3_e7","S3_e8","S3_e9","S3_e10","S3_e11","S3_e12"],"set":"SharedData3eae7b5d","marker":{"color":"rgba(214,39,40,1)","line":{"color":"rgba(214,39,40,1)"}},"error_y":{"color":"rgba(214,39,40,1)"},"error_x":{"color":"rgba(214,39,40,1)"},"xaxis":"x2","yaxis":"y2","_isNestedKey":false,"visible":true}],"traces":[1,3]}],"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section><section id="so-if-you-were-planning-to-now-make-everything-animated-and-interactive" class="slide level2"><h2>So if you were planning to now make everything animated and interactive…</h2>
+<p><br></p>
+<div class="fragment">
+<div class="quarto-figure quarto-figure-center">
+<figure><p><img data-src="Images/rk_please%20stop.gif" style="width:60.0%"></p>
+</figure>
+</div>
+</div>
+</section><section id="animation-and-interactivity-enables-you-to" class="slide level2"><h2>Animation and interactivity enables you to</h2>
+<p><br></p>
+<div>
+<ul>
+<li class="fragment">Hold tension in your story</li>
+<li class="fragment">Add layers to control the ease of how the insight is derived</li>
+<li class="fragment">Give control to your stakeholders so they can arrive at their own insights</li>
+</ul>
+</div>
+</section><section id="next-steps" class="slide level2"><h2>Next steps</h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+<p><br></p>
+<div class="fragment">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Github repository for code</strong></p>
+</div>
+<div class="callout-content">
+<p><a href="https://github.com/deepshamenghani/gganimate_and_plotly">Slides and plots code</a></p>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Plotly and Crosstalk</strong></p>
+</div>
+<div class="callout-content">
+<p><a href="https://github.com/deepshamenghani/gganimate_and_plotly">Plotly for R</a> and <a href="">Crosstalk</a></p>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Don’t animate everything</strong></p>
+</div>
+<div class="callout-content">
+<p><a href="https://github.com/deepshamenghani/gganimate_and_plotly">Plotly for R</a> and <a href="">Crosstalk</a></p>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Watch Ted Lasso</strong></p>
+</div>
+<div class="callout-content">
+<p><a href="https://github.com/deepshamenghani/gganimate_and_plotly">Plotly for R</a> and <a href="">Crosstalk</a></p>
+</div>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:60%;">
+<p><br></p>
+<p><br></p>
+<div class="fragment">
+<div class="quarto-figure quarto-figure-center">
+<figure><p><img data-src="Images/ted-lasso-believe.gif" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<p><img src="Images/posit-logo-fullcolor-TM.png" class="slide-logo"></p>
+<div class="footer footer-default">
+<p><a href="https://bit.ly/deepsha">https://bit.ly/deepsha</a></p>
+</div>
+</section></section>
+</div>
+  </div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="index_files/libs/revealjs/dist/reveal.js"></script><!-- reveal.js plugins --><script src="index_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script><script src="index_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script><script src="index_files/libs/revealjs/plugin/reveal-menu/menu.js"></script><script src="index_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script><script src="index_files/libs/revealjs/plugin/multiplex/socket.io.js"></script><script src="index_files/libs/revealjs/plugin/multiplex/multiplex.js"></script><script src="index_files/libs/revealjs/plugin/quarto-support/support.js"></script><script src="index_files/libs/revealjs/plugin/notes/notes.js"></script><script src="index_files/libs/revealjs/plugin/search/search.js"></script><script src="index_files/libs/revealjs/plugin/zoom/zoom.js"></script><script src="index_files/libs/revealjs/plugin/math/math.js"></script><script>window.define = window.backupDefine; window.backupDefine = undefined;</script><script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'smaller': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'multiplex': {"secret":null,"id":"c9fbf1a76e7c0a53","url":"https://reveal-multiplex.glitch.me/"},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1600,
+
+        height: 900,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script><script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script><script id="quarto-html-after-body" type="application/javascript">
+    window.document.addEventListener("DOMContentLoaded", function (event) {
+      const toggleBodyColorMode = (bsSheetEl) => {
+        const mode = bsSheetEl.getAttribute("data-mode");
+        const bodyEl = window.document.querySelector("body");
+        if (mode === "dark") {
+          bodyEl.classList.add("quarto-dark");
+          bodyEl.classList.remove("quarto-light");
+        } else {
+          bodyEl.classList.add("quarto-light");
+          bodyEl.classList.remove("quarto-dark");
+        }
+      }
+      const toggleBodyColorPrimary = () => {
+        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+        if (bsSheetEl) {
+          toggleBodyColorMode(bsSheetEl);
+        }
+      }
+      toggleBodyColorPrimary();  
+      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+      tabsets.forEach(function(tabset) {
+        const tabby = new Tabby('#' + tabset.id);
+      });
+      const isCodeAnnotation = (el) => {
+        for (const clz of el.classList) {
+          if (clz.startsWith('code-annotation-')) {                     
+            return true;
+          }
+        }
+        return false;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button', {
+        text: function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+      });
+      clipboard.on('success', function(e) {
+        // button target
+        const button = e.trigger;
+        // don't keep focus
+        button.blur();
+        // flash "checked"
+        button.classList.add('code-copy-button-checked');
+        var currentTitle = button.getAttribute("title");
+        button.setAttribute("title", "Copied!");
+        let tooltip;
+        if (window.bootstrap) {
+          button.setAttribute("data-bs-toggle", "tooltip");
+          button.setAttribute("data-bs-placement", "left");
+          button.setAttribute("data-bs-title", "Copied!");
+          tooltip = new bootstrap.Tooltip(button, 
+            { trigger: "manual", 
+              customClass: "code-copy-button-tooltip",
+              offset: [0, -8]});
+          tooltip.show();    
+        }
+        setTimeout(function() {
+          if (tooltip) {
+            tooltip.hide();
+            button.removeAttribute("data-bs-title");
+            button.removeAttribute("data-bs-toggle");
+            button.removeAttribute("data-bs-placement");
+          }
+          button.setAttribute("title", currentTitle);
+          button.classList.remove('code-copy-button-checked');
+        }, 1000);
+        // clear code selection
+        e.clearSelection();
+      });
+      function tippyHover(el, contentFn) {
+        const config = {
+          allowHTML: true,
+          content: contentFn,
+          maxWidth: 500,
+          delay: 100,
+          arrow: false,
+          appendTo: function(el) {
+              return el.closest('section.slide') || el.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start'
+        };
+          config['offset'] = [0,0];
+          config['maxWidth'] = 700;
+        window.tippy(el, config); 
+      }
+      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+      for (var i=0; i<noterefs.length; i++) {
+        const ref = noterefs[i];
+        tippyHover(ref, function() {
+          // use id or data attribute instead here
+          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+          try { href = new URL(href).hash; } catch {}
+          const id = href.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          return note.innerHTML;
+        });
+      }
+      const findCites = (el) => {
+        const parentEl = el.parentElement;
+        if (parentEl) {
+          const cites = parentEl.dataset.cites;
+          if (cites) {
+            return {
+              el,
+              cites: cites.split(' ')
+            };
+          } else {
+            return findCites(el.parentElement)
+          }
+        } else {
+          return undefined;
+        }
+      };
+      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+      for (var i=0; i<bibliorefs.length; i++) {
+        const ref = bibliorefs[i];
+        const citeInfo = findCites(ref);
+        if (citeInfo) {
+          tippyHover(citeInfo.el, function() {
+            var popup = window.document.createElement('div');
+            citeInfo.cites.forEach(function(cite) {
+              var citeDiv = window.document.createElement('div');
+              citeDiv.classList.add('hanging-indent');
+              citeDiv.classList.add('csl-entry');
+              var biblioDiv = window.document.getElementById('ref-' + cite);
+              if (biblioDiv) {
+                citeDiv.innerHTML = biblioDiv.innerHTML;
+              }
+              popup.appendChild(citeDiv);
+            });
+            return popup.innerHTML;
+          });
+        }
+      }
+    });
+    </script>
+
+
+</body></html>
