@@ -28,9 +28,9 @@ library(plotly)
 library(crosstalk)
 df_xls <- readxl::read_xlsx("./data/Ted_Lasso_RK_f_count.xlsx") |> 
   mutate(Dating_Coaching_flag = case_when(
-    Dating_flag == "Yes" & Coaching_flag == "Yes" ~ "Dating & Coaching",
-    Dating_flag == "Yes" & Coaching_flag == "No" ~ "Dating",
-    Dating_flag == "No" & Coaching_flag == "Yes" ~ "Coaching",
+    Dating_flag == "Yes" & Coaching_flag == "Yes" ~ paste0("Dating<br>&<br>Coaching"),
+    Dating_flag == "Yes" & Coaching_flag == "No" ~ paste0("Dating<br>only"),
+    Dating_flag == "No" & Coaching_flag == "Yes" ~ paste0("Coaching<br>only"),
          .default = "Neither")) 
 ```
 
@@ -127,26 +127,7 @@ df_xls <- readxl::read_xlsx("./data/Ted_Lasso_RK_f_count.xlsx") |>
 
 <br>
 
-:::: columns
-
-::: {.column width="35%"}
-
-
-- Season 1 - Episode 1: __2__
-
-<br>
-
-- Season 2 - Episode 1: __11__
-
-<br>
-
-- Season 3 - Episode 1: __6__
-
-:::
-
-
-::: {.column  width="65%"}
-
+::: {.fragment}
 
 ```{r}
 
@@ -155,27 +136,32 @@ library(plotly)
 library(crosstalk)
 
 df_xls |> 
-  complete(Season, Episode) |> 
+  complete(Season, Episode) |>
   fill(cum_rk_season, .direction = "down") |>
-  mutate(Season = str_glue("Season\n{Season}")) |>
-  mutate(Season = (fct_reorder(as.factor(Season), -cum_rk_season))) |> 
-  plot_ly(y=~Season, x = ~cum_rk_season, size = ~cum_rk_season) |> 
-  add_bars(frame = ~Episode, type="bar", ids = ~Season, color = ~Season) |>
+  mutate(Season = str_glue("Season {Season}")) |>
+  mutate(Season = (fct_reorder(as.factor(Season), -cum_rk_season))) |>
+  mutate(Episode_act = case_when(Season == "Season 1" & Episode %in% c(11:12) ~ 10,
+                                 TRUE ~ Episode)) |> 
+  plot_ly(width = 1400, height=600) |> 
+  add_bars(y=~Season, x = ~cum_rk_season, frame = ~Episode, 
+           type="bar", ids = ~Season, color = ~Season,
+           customdata = ~Episode_act,
+           hovertemplate = paste("%{y}<br>",
+                                 "Episode: %{customdata}<br>",
+                                 "Cumulative count: %{x}<extra></extra>")
+  ) |>
+  add_text(frame = ~Episode, y=~Season, x = ~cum_rk_season+4, text = ~cum_rk_season, textfont = list(size = 25)) |> 
   animation_opts(frame = 800, transition = 300) |>
-  layout(title = "Cumulative F* bombs by Roy Kent each season",
-         xaxis = list(title = ""),
-         yaxis = list(title = "")) |>
+  layout(title = list(text = "Cumulative F-bombs by Roy Kent each season", font = list(size = 30, color = "gray60")),
+         yaxis = list(title = "", tickfont = list(size = 25)),
+         xaxis = list(title = "", ticktext = list(), tickvals = list()),
+         margin = list(t = 100)
+         ) |>
+  animation_slider(currentvalue = list(font = list(color = "#d3d3d3",size = 60))) |> 
+  config(displayModeBar = FALSE) |> 
   hide_legend()
 ```
-:::
 
-::::
-
-::: {.fragment}
-
-<br>
-
-___Season 3 ended with a total of 138 F-bombs___
 :::
 
 # By adding animation you hold the tension in your story
@@ -255,7 +241,7 @@ dataset |>
 <br>
 
 $$
-f-score = {Roy Kent  Fbombs / \choose Total  Fbombs}
+f-score = {Roy Kent  F-bombs / \choose Total  F-bombs} * 100 (\%)
 $$
 :::
 
@@ -266,7 +252,7 @@ $$
 
 ::: {.fragment}
 
-In non-statistical terms - In how many episodes per season did Roy Kent contribute to more than half the Fbombs? 
+In non-statistical terms - In how many episodes per season did Roy Kent contribute to more than half the F-bombs? 
 
 <br>
 
@@ -280,13 +266,13 @@ And...which season had the highest number of such episodes?
 
 ### Can you guess the answer?
 
-- Season 1 - Total Fbombs: __56__
+- Season 1 - Total F-bombs: __56__
 
 
-- Season 2 - Total Fbombs: __106__
+- Season 2 - Total F-bombs: __106__
 
 
-- Season 3 - Total Fbombs: __138__
+- Season 3 - Total F-bombs: __138__
 
 :::
 
@@ -296,36 +282,97 @@ And...which season had the highest number of such episodes?
 
 ```{r}
 p1 <- df_xls |> 
-plot_ly(x = ~Season_Episode, y = ~F_perc, text = ~Season_Episode,
-          width = 1200,
-          height = 800) |> 
-  add_bars(type="bar") |> 
+  plot_ly(
+    x = ~Season_Episode, 
+    y = ~F_score*100, text = ~Season_Episode,
+    width = 1200,
+    height = 800
+  ) |> 
+  add_bars(
+    type="bar",
+    customdata = ~paste0(F_perc,"%"),  # Include the Episode variable in customdata
+           hovertemplate = paste("<span style='font-size:18px;'>%{x}</span><br><br>",
+                        "<span style='font-size:20px;'>F-score: %{customdata}</span><extra></extra>"),
+    marker = list(color = '#004E4F')  # Change color to blue
+  ) |> 
   layout(
-    xaxis = list(title = ""),
-    yaxis = list(title = ""),
-    title = "F-score by episode and season"
-  )
+    xaxis = list(
+      title = "", 
+      ticktext = list(), 
+      tickvals = list()
+    ),
+    yaxis = list(
+      title = "F-score (%)",
+      titlefont = list(size = 24, standoff = 45),  # Increase y-axis title font size
+      tickfont = list(size = 18)    # Increase y-axis labels font size
+    ),
+    title = "",
+    shapes = list(
+      list(type = "line",
+        x0 = 0,x1 = 1,xref = "paper", y0 = 50, y1 = 50,yref = "y",
+        line = list(
+          color = "black",
+          width = 2,
+          dash = "dash"  # Make line dotted
+        )
+      )
+    )
+  ) |> 
+  config(displayModeBar = FALSE) |> 
+  hide_legend()
+
 
 
 bscols(widths = c(NA,10),"",p1)
 ```
 :::
 
+
+
 ## Or we can add a "season" checkbox to make it easier to read
 
 ```{r}
 shared_data <- df_xls |> SharedData$new()
 
-p2 <- shared_data |> 
-  plot_ly(x = ~Season_Episode, y = ~F_perc, text = ~Season_Episode,
-          width = 1200,
-          height = 800) |> 
-  add_bars(type="bar") |> 
+plot2 <- shared_data |> 
+  plot_ly(
+    x = ~Season_Episode, 
+    y = ~F_score*100, text = ~Season_Episode,
+    width = 1200,
+    height = 800
+  ) |> 
+  add_bars(
+    type="bar",
+    customdata = ~paste0(F_perc,"%"),  # Include the Episode variable in customdata
+  hovertemplate = paste("<span style='font-size:18px;'>%{x}</span><br><br>",
+                        "<span style='font-size:20px;'>F-score: %{customdata}</span><extra></extra>"),
+    marker = list(color = '#004E4F')  # Change color to blue
+  ) |> 
   layout(
-    xaxis = list(title = ""),
-    yaxis = list(title = ""),
-    title = "F-score by episode and season"
-  )
+    xaxis = list(
+      title = "", 
+      ticktext = list(), 
+      tickvals = list()
+    ),
+    yaxis = list(
+      title = "F-score (%)",
+      titlefont = list(size = 24, standoff = 45),  # Increase y-axis title font size
+      tickfont = list(size = 18)    # Increase y-axis labels font size
+    ),
+    title = "",
+    shapes = list(
+      list(type = "line",
+        x0 = 0,x1 = 1,xref = "paper", y0 = 50, y1 = 50,yref = "y",
+        line = list(
+          color = "black",
+          width = 2,
+          dash = "dash"  # Make line dotted
+        )
+      )
+    )
+  ) |> 
+  config(displayModeBar = FALSE) |> 
+  hide_legend()
 
 bscols(widths = c(NA,1,10),
        " ",
@@ -333,11 +380,14 @@ bscols(widths = c(NA,1,10),
         id = "Season", label = "Season", 
         sharedData = shared_data,
         group = ~Season
-), p2)
+), plot2)
 
 ```
 
-# Through interactivity you can add layers and control the ease of how the insight is derived
+
+
+
+# Through interactivity you can give your stakeholders more control  in engaging with your story
 
 ## Code structure for adding interativity with Crosstalk
 
@@ -363,7 +413,6 @@ shared_data <- dataset |> SharedData$new()
 ```
 
 :::
-
 
 ## Code structure for adding interativity with Crosstalk
 
@@ -431,6 +480,9 @@ bscols(widths = c(2,10),
 
 # Q3: Did Roy Kent have a lower average F-score while dating Keeley or while he was coaching?
 
+![](Images/keeley.gif){width="50%" fig-align="center"}
+
+
 ## We can use a bar plot to display average F-Score
 
 :::: columns
@@ -441,15 +493,32 @@ bscols(widths = c(2,10),
 
 ```{r}
 df_xls |> 
-  plot_ly(
-          width = 900,
+  plot_ly(width = 900,
           height = 800) |> 
   group_by(Dating_Coaching_flag) |> 
-  summarise(avg.fscore = mean(F_score, na.rm=TRUE)) |> 
-  add_bars(type="bar", y = ~Dating_Coaching_flag, x = ~avg.fscore) |> 
-  hide_legend() |> 
-  layout(barmode = "overlay")
-
+  summarise(avg.fscore = mean(F_score, na.rm=TRUE),
+            F_perc = scales::percent(mean(F_score, na.rm=TRUE))) |> 
+  add_bars(type="bar", y = ~Dating_Coaching_flag, x = ~avg.fscore,
+           customdata = ~paste0(F_perc),  # Include the Episode variable in customdata
+           hovertemplate = paste("<span style='font-size:18px;'>%{y}</span><br><br>",
+                        "<span style='font-size:20px;'>%{customdata}</span><extra></extra>"),
+    marker = list(color = '#004E4F') ) |>
+  add_text(y = ~Dating_Coaching_flag, x = ~avg.fscore-0.04,  text = ~F_perc, textfont = list(size = 25, color = "#d3d3d3")) |>
+  layout(
+    barmode = "overlay",
+    yaxis = list(
+      title = "", 
+      titlefont = list(size = 24, standoff = 45),  # Increase y-axis title font size
+      tickfont = list(size = 24)  
+    ),
+    xaxis = list(
+      title = list(text = "F-score (%)", font = list(size = 24)),
+      ticktext = list(), tickvals = list()   # Increase y-axis labels font size
+    ),
+    title = ""
+  ) |> 
+  config(displayModeBar = FALSE) |> 
+  hide_legend()
 ```
 
 :::
@@ -484,26 +553,86 @@ This is just fine... but as Roy Kent said -
 ## 
 
 ```{r}
+
+custom_colors <- c("#1f77b4", "#E69F00","#000000")
+
+
 shared_data <- df_xls |> 
+  mutate(Season = as.factor(Season)) |> 
   SharedData$new(key=~Dating_Coaching_flag)
 
 p1 <- shared_data |> 
-  plot_ly(
-          width = 1500,
-          height = 800) |> 
+  plot_ly(width = 500,
+          height = 400) |> 
   group_by(Dating_Coaching_flag) |> 
-  summarise(avg.fscore = mean(F_score, na.rm=TRUE)) |> 
-  add_bars(type="bar",y = ~Dating_Coaching_flag, x = ~avg.fscore) |> 
-  hide_legend() |> 
-  layout(barmode = "overlay")
+  summarise(avg.fscore = mean(F_score, na.rm=TRUE),
+            F_perc = scales::percent(mean(F_score, na.rm=TRUE))) |> 
+  add_bars(type="bar", y = ~Dating_Coaching_flag, x = ~avg.fscore,
+           customdata = ~paste0(F_perc),  # Include the Episode variable in customdata
+           hovertemplate = paste("<span style='font-size:18px;'>%{y}</span><br><br>",
+                        "<span style='font-size:20px;'>%{customdata}</span><extra></extra>"),
+    marker = list(color = '#004E4F') ) |>
+  add_text(y = ~Dating_Coaching_flag, x = ~avg.fscore-0.04,  text = ~F_perc, textfont = list(size = 25, color = "#d3d3d3")) |>
+  layout(
+    barmode = "overlay",
+    yaxis = list(
+      title = "", 
+      titlefont = list(size = 24, standoff = 45),  # Increase y-axis title font size
+      tickfont = list(size = 24)  
+    ),
+    xaxis = list(
+      title = list(text = "F-score (%)", font = list(size = 24)),
+      ticktext = list(), tickvals = list()   # Increase y-axis labels font size
+    ),
+    title = ""
+  ) |> 
+  config(displayModeBar = FALSE) |> 
+  hide_legend()
 
 p2 <- shared_data |> 
-  plot_ly(x = ~Episode_order, y = ~F_count_RK, text = ~Season_Episode, 
+  plot_ly(x = ~Episode_order, y = ~F_count_RK, 
           width = 1500,
           height = 800) |> 
-  add_bars(type="bar") 
+  add_bars(
+    type="bar",
+    customdata = ~paste0("Total: ",F_count_total, "<br><br>", "F-score: ", F_perc, "<br><br>", Season_Episode,"%"),  
+           hovertemplate = paste("<span style='font-size:18px;'>Roy Kent: %{y}</span><br><br>",
+                        "<span style='font-size:20px;'>%{customdata}</span><extra></extra>"),
+    color = ~Season,
+    colors  = custom_colors
+  ) |> 
+  add_text(y = -1, x = 5,  text = "Season 1", textfont = list(size = 25, color = custom_colors[1])) |>
+  add_text(y = -1, x = 17,  text = "Season 2", textfont = list(size = 25, color = custom_colors[2])) |>
+  add_text(y = -1, x = 29,  text = "Season 3", textfont = list(size = 25, color = custom_colors[3])) |>
+  add_text(y = 25, x = 17,  text = "F-bombs dropped by Roy Kent per episode", textfont = list(size = 30, color = "gray60")) |>
+  layout(
+    xaxis = list(
+      title = "", 
+      ticktext = list(), 
+      tickvals = list()
+    ),
+    yaxis = list(
+      title = "F-bombs dropped by Roy Kent per episode",
+      titlefont = list(size = 24, standoff = 45),  # Increase y-axis title font size
+      tickfont = list(size = 18)    # Increase y-axis labels font size
+    ),
+    title = "",
+    shapes = list(
+      list(type = "line",
+        x0 = 0,x1 = 1,xref = "paper", y0 = 15, y1 = 15,yref = "y",
+        line = list(
+          color = "black",
+          width = 2,
+          dash = "dash"  # Make line dotted
+        )
+      )
+    ),
+    showlegend=FALSE
+  ) |> 
+  config(displayModeBar = FALSE) |> 
+  hide_legend()
 
-subplot(p1,p2) |> 
+subplot(p1,p2, nrows = 1, widths = c(0.45, 0.55), shareX = TRUE, shareY = FALSE) |> 
   highlight(persistent = TRUE
             , on = "plotly_click"
             , off = "plotly_doubleclick"
@@ -513,7 +642,7 @@ subplot(p1,p2) |>
 ```
 
 
-# Through linking you can give control to your stakeholders so they can arrive at their own insights
+# Through linking you can add layers to the story so your stakeholders can arrive at their own insights
 
 ## Code structure for linking two plots
 
@@ -656,8 +785,16 @@ bscols(widths = c(NA,1,10),
 ::: {.incremental}
 
 - Hold tension in your story
-- Add layers to control the ease of how the insight is derived
-- Give control to your stakeholders so they can arrive at their own insights
+- Give your stakeholders more control in engaging with your story
+- Add layers to your story so your stakeholders can arrive at their own insights
+
+:::
+
+<br>
+
+::: {.fragment}
+
+### ___And use it all wisely!___
 
 :::
 
