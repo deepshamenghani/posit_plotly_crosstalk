@@ -1,6 +1,6 @@
 ---
-title: "Data Viz Animation and Interactivity with Roy Kent"
-date: 09/21/2023
+title: "Unlocking the power of Data Viz animation and interactivity in Quarto"
+date: 09/20/2023
 author: Deepsha Menghani
 format: 
   revealjs:
@@ -34,7 +34,7 @@ df_xls <- readxl::read_xlsx("./data/Ted_Lasso_RK_f_count.xlsx") |>
          .default = "Neither")) 
 ```
 
-# What are we here to answer?
+# My goal is to answer
 
 ## {auto-animate=true}
 
@@ -45,7 +45,7 @@ df_xls <- readxl::read_xlsx("./data/Ted_Lasso_RK_f_count.xlsx") |>
 <br>
 
 
-- Why should you use animation and interactivity in your data viz?
+- What is Data Viz animation, interactivity and linking?
 
 ## {auto-animate=true}
 
@@ -55,20 +55,8 @@ df_xls <- readxl::read_xlsx("./data/Ted_Lasso_RK_f_count.xlsx") |>
 
 <br>
 
-- When should you use it?
-- Why should you use animation and interactivity in your data viz?
-
-## {auto-animate=true}
-
-<br>
-
-<br>
-
-<br>
-
-- How can you build it yourself?
-- When should you use it?
-- Why should you use animation and interactivity in your data viz?
+- How can you get started with it in your storytelling?
+- What is Data Viz animation, interactivity and linking?
 
 ## {auto-animate=true}
 
@@ -79,10 +67,40 @@ df_xls <- readxl::read_xlsx("./data/Ted_Lasso_RK_f_count.xlsx") |>
 <br>
 
 - And have fun learning with me, Ted Lasso and Roy Kent!!
-- How can you build it yourself?
-- When should you use it?
-- Why should you use animation and interactivity in your data viz?
+- How can you get started with it in your storytelling?
+- What is Data Viz animation, interactivity and linking?
 
+
+## {auto-animate=true}
+
+<br>
+
+There are lots of amazing packages for animation and interactivity like...
+
+<br>
+
+<br>
+
+- Shiny
+- Highcharter
+- Ggiraph
+- Gganimate
+- Observablejs Plot
+- Plotly
+- Crosstalk
+- And many more...
+
+## {auto-animate=true}
+
+<br>
+
+For this presentation, I will share examples of -
+<br>
+
+<br>
+
+- __Plotly__
+- __Crosstalk__
 
 # But first.. What is Ted Lasso and who is Roy Kent?
 
@@ -96,32 +114,60 @@ df_xls <- readxl::read_xlsx("./data/Ted_Lasso_RK_f_count.xlsx") |>
 
 ::: {layout="[[1,1,1,1], [1,1,1,1]]"}
 
+::: {.fragment}
+
 ![Happy](Images/rk_wtf.jpg)
+:::
+
+::: {.fragment}
 
 ![Sad](Images/rk_wtf.jpg)
 
+:::
+
+::: {.fragment}
+
+
 ![Mad](Images/rk_wtf.jpg)
+:::
+
+::: {.fragment}
+
 
 ![Amused](Images/rk_wtf.jpg)
+:::
+
+::: {.fragment}
 
 ![Loving](Images/rk_wtf.jpg)
 
+:::
+
+::: {.fragment}
+
+
 ![Surprised](Images/rk_wtf.jpg)
+:::
+
+::: {.fragment}
+
 
 ![Thoughtful](Images/rk_wtf.jpg)
+:::
+
+::: {.fragment}
+
 
 ![Joyous](Images/rk_wtf.jpg)
+:::
 
 :::
 
-# So, we are going to look at the number of F-bombs dropped by Roy Kent for our visualizations!
-
+# So, let's look at the number of F-bombs dropped by Roy Kent!
 
 # Animation {background-color="#004E4F"}
 
 # Let's start with a question...
-
-## Q1: What season did Roy Kent end up dropping the most number of F-bombs?
 
 ## Q1: What season did Roy Kent end up dropping the most number of F-bombs?
 
@@ -164,7 +210,7 @@ df_xls |>
 
 :::
 
-# By adding animation you hold the tension in your story
+# By adding animation you can hold the tension in your story
 
 ## Code structure for creating animation using Plotly
 
@@ -284,7 +330,7 @@ And...which season had the highest number of such episodes?
 p1 <- df_xls |> 
   plot_ly(
     x = ~Season_Episode, 
-    y = ~F_score*100, text = ~Season_Episode,
+    y = ~F_score*100, 
     width = 1200,
     height = 800
   ) |> 
@@ -337,7 +383,7 @@ shared_data <- df_xls |> SharedData$new()
 plot2 <- shared_data |> 
   plot_ly(
     x = ~Season_Episode, 
-    y = ~F_score*100, text = ~Season_Episode,
+    y = ~F_score*100, 
     width = 1200,
     height = 800
   ) |> 
