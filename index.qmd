@@ -1,5 +1,5 @@
 ---
-title: "Unlocking the power of Data Viz animation and interactivity in Quarto"
+title: "Data Viz animation and interactivity in Quarto"
 date: 09/20/2023
 author: Deepsha Menghani
 format: 
@@ -18,7 +18,7 @@ format:
     code-line-numbers: false
     fig-cap-location: bottom
     title-slide-attributes:
-      data-background-color: "#004E4F"
+      data-background-color: "#001E4E"
 editor: source
 ---
 
@@ -26,6 +26,10 @@ editor: source
 library(tidyverse)
 library(plotly)
 library(crosstalk)
+
+colors_richmond <- c("#001E4E", "#FFD200",  "#D71920")
+  
+
 df_xls <- readxl::read_xlsx("./data/Ted_Lasso_RK_f_count.xlsx") |> 
   mutate(Dating_Coaching_flag = case_when(
     Dating_flag == "Yes" & Coaching_flag == "Yes" ~ paste0("Dating<br>&<br>Coaching"),
@@ -44,10 +48,14 @@ df_xls <- readxl::read_xlsx("./data/Ted_Lasso_RK_f_count.xlsx") |>
 
 <br>
 
+<br>
+
 
 - What is Data Viz animation, interactivity and linking?
 
 ## {auto-animate=true}
+
+<br>
 
 <br>
 
@@ -59,6 +67,8 @@ df_xls <- readxl::read_xlsx("./data/Ted_Lasso_RK_f_count.xlsx") |>
 - What is Data Viz animation, interactivity and linking?
 
 ## {auto-animate=true}
+
+<br>
 
 <br>
 
@@ -79,7 +89,7 @@ There are lots of amazing packages for animation and interactivity like...
 
 <br>
 
-<br>
+::: {.fragment}
 
 - Shiny
 - Highcharter
@@ -90,12 +100,13 @@ There are lots of amazing packages for animation and interactivity like...
 - Crosstalk
 - And many more...
 
+:::
+
 ## {auto-animate=true}
 
 <br>
 
 For this presentation, I will share examples of -
-<br>
 
 <br>
 
@@ -165,7 +176,28 @@ For this presentation, I will share examples of -
 
 # So, let's look at the number of F-bombs dropped by Roy Kent!
 
-# Animation {background-color="#004E4F"}
+<br>
+
+::: {.fragment}
+
+How do I know this?
+
+:::
+
+::: {.fragment}
+
+Because I watched each episode at 2X speed and diligently noted down every F*bomb and gesture reference!! 
+
+:::
+
+
+::: {.fragment}
+
+___FOR SCIENCE!!___ 
+
+:::
+
+# Animation {background-color="#001E4E"}
 
 # Let's start with a question...
 
@@ -174,6 +206,7 @@ For this presentation, I will share examples of -
 <br>
 
 ::: {.fragment}
+
 
 ```{r}
 
@@ -188,9 +221,9 @@ df_xls |>
   mutate(Season = (fct_reorder(as.factor(Season), -cum_rk_season))) |>
   mutate(Episode_act = case_when(Season == "Season 1" & Episode %in% c(11:12) ~ 10,
                                  TRUE ~ Episode)) |> 
-  plot_ly(width = 1400, height=600) |> 
+  plotly::plot_ly(width = 1400, height=600) |> 
   add_bars(y=~Season, x = ~cum_rk_season, frame = ~Episode, 
-           type="bar", ids = ~Season, color = ~Season,
+           type="bar", ids = ~Season, color = ~Season, colors = colors_richmond,
            customdata = ~Episode_act,
            hovertemplate = paste("%{y}<br>",
                                  "Episode: %{customdata}<br>",
@@ -201,7 +234,21 @@ df_xls |>
   layout(title = list(text = "Cumulative F-bombs by Roy Kent each season", font = list(size = 30, color = "gray60")),
          yaxis = list(title = "", tickfont = list(size = 25)),
          xaxis = list(title = "", ticktext = list(), tickvals = list()),
-         margin = list(t = 100)
+         margin = list(t = 100),
+         images = list(
+           list(  
+             source =  "https://th.bing.com/th/id/OIP.8TT-1L7FpfdS1nAjf7mhWQAAAA?w=181&h=183&c=7&r=0&o=5&dpr=1.3&pid=1.7",  
+             xref = "paper",  
+             yref = "paper",  
+             x = 1,  
+             y = .7,  
+             sizex = 0.6,  
+             sizey = 0.6,  
+             opacity= 1,
+             xanchor="right",  
+             yanchor="bottom" 
+           )  
+         )
          ) |>
   animation_slider(currentvalue = list(font = list(color = "#d3d3d3",size = 60))) |> 
   config(displayModeBar = FALSE) |> 
@@ -209,6 +256,9 @@ df_xls |>
 ```
 
 :::
+
+
+
 
 # By adding animation you can hold the tension in your story
 
@@ -221,7 +271,7 @@ df_xls |>
 ```{.r echo=TRUE}
 
 dataset |> 
-  plot_ly(y=~count, x = ~season) |> 
+  plotly::plot_ly(y=~count, x = ~season) |> 
   add_bars(type="bar")
   
 ```
@@ -235,7 +285,7 @@ dataset |>
 ```{.r echo=TRUE}
 
 dataset |> 
-  plot_ly(y=~count, x = ~season) |> 
+  plotly::plot_ly(y=~count, x = ~season) |> 
   add_bars(frame = ~Episode, type="bar")
   
 ```
@@ -253,7 +303,7 @@ dataset |>
 ```{.r echo=TRUE}
 
 dataset |> 
-  plot_ly(y=~count, x = ~season) |> 
+  plotly::plot_ly(y=~count, x = ~season) |> 
   add_bars(type="bar") 
   
 ```
@@ -266,14 +316,14 @@ dataset |>
 ```{.r echo=TRUE}
 
 dataset |> 
-  plot_ly(y=~count, x = ~season) |> 
+  plotly::plot_ly(y=~count, x = ~season) |> 
   add_bars(frame = ~Episode, type="bar") |> 
   animation_opts(frame = 800, transition = 300)
   
 ```
 
 
-# Interactivity {background-color="#004E4F"}
+# Interactivity {background-color="#001E4E"}
 
 # Let's get technical and talk about statistics
 # Let's get technical and talk about statistics - "F-SCORE"
@@ -292,7 +342,7 @@ $$
 :::
 
 
-## Q2: Which season has the most episodes with F-Score > 50%?
+## Q2: Which season has the most number of episodes with Roy Kent's F-Score > 50%?
 
 <br>
 
@@ -324,6 +374,8 @@ And...which season had the highest number of such episodes?
 
 ## We can display F-score for each episode as below
 
+<br>
+
 ::: {.fragment}
 
 ```{r}
@@ -339,7 +391,7 @@ p1 <- df_xls |>
     customdata = ~paste0(F_perc,"%"),  # Include the Episode variable in customdata
            hovertemplate = paste("<span style='font-size:18px;'>%{x}</span><br><br>",
                         "<span style='font-size:20px;'>F-score: %{customdata}</span><extra></extra>"),
-    marker = list(color = '#004E4F')  # Change color to blue
+    marker = list(color = '#001E4E')  # Change color to blue
   ) |> 
   layout(
     xaxis = list(
@@ -377,11 +429,14 @@ bscols(widths = c(NA,10),"",p1)
 
 ## Or we can add a "season" checkbox to make it easier to read
 
+<br>
+
+
 ```{r}
-shared_data <- df_xls |> SharedData$new()
+shared_data <- df_xls |> crosstalk::SharedData$new()
 
 plot2 <- shared_data |> 
-  plot_ly(
+  plotly::plot_ly(
     x = ~Season_Episode, 
     y = ~F_score*100, 
     width = 1200,
@@ -392,7 +447,7 @@ plot2 <- shared_data |>
     customdata = ~paste0(F_perc,"%"),  # Include the Episode variable in customdata
   hovertemplate = paste("<span style='font-size:18px;'>%{x}</span><br><br>",
                         "<span style='font-size:20px;'>F-score: %{customdata}</span><extra></extra>"),
-    marker = list(color = '#004E4F')  # Change color to blue
+    marker = list(color = '#001E4E')  # Change color to blue
   ) |> 
   layout(
     xaxis = list(
@@ -422,7 +477,7 @@ plot2 <- shared_data |>
 
 bscols(widths = c(NA,1,10),
        " ",
-       filter_checkbox(
+       crosstalk::filter_checkbox(
         id = "Season", label = "Season", 
         sharedData = shared_data,
         group = ~Season
@@ -433,7 +488,7 @@ bscols(widths = c(NA,1,10),
 
 
 
-# Through interactivity you can give your stakeholders more control  in engaging with your story
+# Through interactivity you can make it dynamic and easier for your stakeholders to engage with your story
 
 ## Code structure for adding interativity with Crosstalk
 
@@ -443,7 +498,7 @@ bscols(widths = c(NA,1,10),
 
 ```{.r echo=TRUE}
 dataset |> 
-  plot_ly(y=~F_score, x = ~episode) |> 
+  plotly::plot_ly(y=~F_score, x = ~episode) |> 
   add_bars(type="bar") 
 ```
 
@@ -455,7 +510,7 @@ dataset |>
 
 
 ```{.r echo=TRUE}
-shared_data <- dataset |> SharedData$new()
+shared_data <- crosstalk::SharedData$new(dataset)
 ```
 
 :::
@@ -468,7 +523,7 @@ shared_data <- dataset |> SharedData$new()
 
 ```{.r echo=TRUE}
 dataset |> 
-  plot_ly(y=~F_score, x = ~episode) |> 
+  plotly::plot_ly(y=~F_score, x = ~episode) |> 
   add_bars(type="bar")
 ```
 
@@ -479,10 +534,10 @@ dataset |>
 
 
 ```{.r echo=TRUE}
-shared_data <- dataset |> SharedData$new()
+shared_data <- crosstalk::SharedData$new(dataset)
 
 plot <- shared_data |> 
-  plot_ly(y=~F_score, x = ~episode) |> 
+  plotly::plot_ly(y=~F_score, x = ~episode) |> 
   add_bars(type="bar")
 ```
 
@@ -495,7 +550,7 @@ plot <- shared_data |>
 
 ```{.r echo=TRUE}
 dataset |> 
-  plot_ly(y=~F_score, x = ~episode) |> 
+  plotly::plot_ly(y=~F_score, x = ~episode) |> 
   add_bars(type="bar")
 ```
 
@@ -506,14 +561,13 @@ dataset |>
 
 
 ```{.r echo=TRUE}
-shared_data <- dataset |> SharedData$new()
+shared_data <- crosstalk::SharedData$new(dataset)
 
 plot <- shared_data |> 
-  plot_ly(y=~F_score, x = ~episode) |> 
+  plotly::plot_ly(y=~F_score, x = ~episode) |> 
   add_bars(type="bar")
 
-bscols(widths = c(2,10),
-       filter_checkbox(
+bscols(crosstalk::filter_checkbox(
           id = "Season", 
           label = "Season", 
           sharedData = shared_data,  
@@ -522,7 +576,7 @@ bscols(widths = c(2,10),
       plot)
 ```
 
-# Linking {background-color="#004E4F"}
+# Linking {background-color="#001E4E"}
 
 # Q3: Did Roy Kent have a lower average F-score while dating Keeley or while he was coaching?
 
@@ -538,18 +592,21 @@ bscols(widths = c(2,10),
 ::: {.fragment}
 
 ```{r}
+
+color_datingflags <- c("#CEAB07", "#525631", "#001E4E", "gray60")
+
+
 df_xls |> 
-  plot_ly(width = 900,
+  plotly::plot_ly(width = 900,
           height = 800) |> 
   group_by(Dating_Coaching_flag) |> 
   summarise(avg.fscore = mean(F_score, na.rm=TRUE),
             F_perc = scales::percent(mean(F_score, na.rm=TRUE))) |> 
-  add_bars(type="bar", y = ~Dating_Coaching_flag, x = ~avg.fscore,
-           customdata = ~paste0(F_perc),  # Include the Episode variable in customdata
+  add_bars(type="bar", y = ~Dating_Coaching_flag, x = ~avg.fscore, color = ~Dating_Coaching_flag, colors = color_datingflags,
+           customdata = ~paste0(F_perc),  
            hovertemplate = paste("<span style='font-size:18px;'>%{y}</span><br><br>",
-                        "<span style='font-size:20px;'>%{customdata}</span><extra></extra>"),
-    marker = list(color = '#004E4F') ) |>
-  add_text(y = ~Dating_Coaching_flag, x = ~avg.fscore-0.04,  text = ~F_perc, textfont = list(size = 25, color = "#d3d3d3")) |>
+                        "<span style='font-size:20px;'>%{customdata}</span><extra></extra>") ) |>
+  add_text(y = ~Dating_Coaching_flag, x = ~avg.fscore-0.04,  text = ~F_perc, textfont = list(size = 50, color = "#d3d3d3")) |>
   layout(
     barmode = "overlay",
     yaxis = list(
@@ -600,12 +657,11 @@ This is just fine... but as Roy Kent said -
 
 ```{r}
 
-custom_colors <- c("#1f77b4", "#E69F00","#000000")
-
+custom_colors <- c("#9FB7C0", "#0F4B63","#000000")
 
 shared_data <- df_xls |> 
   mutate(Season = as.factor(Season)) |> 
-  SharedData$new(key=~Dating_Coaching_flag)
+  crosstalk::SharedData$new(key=~Dating_Coaching_flag)
 
 p1 <- shared_data |> 
   plot_ly(width = 500,
@@ -613,12 +669,11 @@ p1 <- shared_data |>
   group_by(Dating_Coaching_flag) |> 
   summarise(avg.fscore = mean(F_score, na.rm=TRUE),
             F_perc = scales::percent(mean(F_score, na.rm=TRUE))) |> 
-  add_bars(type="bar", y = ~Dating_Coaching_flag, x = ~avg.fscore,
+  add_bars(type="bar", y = ~Dating_Coaching_flag, x = ~avg.fscore, color = ~Dating_Coaching_flag, colors = color_datingflags,
            customdata = ~paste0(F_perc),  # Include the Episode variable in customdata
            hovertemplate = paste("<span style='font-size:18px;'>%{y}</span><br><br>",
-                        "<span style='font-size:20px;'>%{customdata}</span><extra></extra>"),
-    marker = list(color = '#004E4F') ) |>
-  add_text(y = ~Dating_Coaching_flag, x = ~avg.fscore-0.04,  text = ~F_perc, textfont = list(size = 25, color = "#d3d3d3")) |>
+                        "<span style='font-size:20px;'>%{customdata}</span><extra></extra>") ) |>
+  add_text(y = ~Dating_Coaching_flag, x = ~avg.fscore-0.06,  text = ~F_perc, textfont = list(size = 50, color = "#d3d3d3")) |>
   layout(
     barmode = "overlay",
     yaxis = list(
@@ -641,7 +696,7 @@ p2 <- shared_data |>
           height = 800) |> 
   add_bars(
     type="bar",
-    customdata = ~paste0("Total: ",F_count_total, "<br><br>", "F-score: ", F_perc, "<br><br>", Season_Episode,"%"),  
+    customdata = ~paste0("Total: ",F_count_total, "<br><br>", "F-score: ", F_perc, "<br><br>", Season_Episode),  
            hovertemplate = paste("<span style='font-size:18px;'>Roy Kent: %{y}</span><br><br>",
                         "<span style='font-size:20px;'>%{customdata}</span><extra></extra>"),
     color = ~Season,
@@ -679,7 +734,7 @@ p2 <- shared_data |>
   hide_legend()
 
 subplot(p1,p2, nrows = 1, widths = c(0.45, 0.55), shareX = TRUE, shareY = FALSE) |> 
-  highlight(persistent = TRUE
+  plotly::highlight(persistent = TRUE
             , on = "plotly_click"
             , off = "plotly_doubleclick"
             , dynamic = TRUE
@@ -688,7 +743,7 @@ subplot(p1,p2, nrows = 1, widths = c(0.45, 0.55), shareX = TRUE, shareY = FALSE)
 ```
 
 
-# Through linking you can add layers to the story so your stakeholders can arrive at their own insights
+# Through linking you can add layers to the story and give your stakeholders more control so they can arrive at their own insights
 
 ## Code structure for linking two plots
 
@@ -697,8 +752,7 @@ subplot(p1,p2, nrows = 1, widths = c(0.45, 0.55), shareX = TRUE, shareY = FALSE)
 ::: {.fragment}
 
 ```{.r echo=TRUE}
-shared_data <- dataset |> 
-  SharedData$new(key=~Dating_Coaching_flag)
+shared_data <- crosstalk::SharedData$new(dataset, key=~Dating_Coaching_flag)
 ```
 
 :::
@@ -708,11 +762,10 @@ shared_data <- dataset |>
 <br>
 
 ```{.r echo=TRUE}
-shared_data <- dataset |> 
-  SharedData$new(key=~Dating_Coaching_flag)
+shared_data <- crosstalk::SharedData$new(dataset, key=~Dating_Coaching_flag)
 
 plot1 <- shared_data |> 
-  plot_ly() |> 
+  plotly::plot_ly() |> 
   group_by(Dating_Coaching_flag) |> 
   summarise(avg.fscore = mean(F_score, na.rm=TRUE)) |> 
   add_bars(y = ~Dating_Coaching_flag, x = ~avg.fscore, type="bar")
@@ -725,17 +778,16 @@ plot1 <- shared_data |>
 
 
 ```{.r echo=TRUE}
-shared_data <- dataset |> 
-  SharedData$new(key=~Dating_Coaching_flag)
+shared_data <- crosstalk::SharedData$new(dataset, key=~Dating_Coaching_flag)
 
 plot1 <- shared_data |> 
-  plot_ly() |> 
+  plotly::plot_ly() |> 
   group_by(Dating_Coaching_flag) |> 
   summarise(avg.fscore = mean(F_score, na.rm=TRUE)) |> 
   add_bars(y = ~Dating_Coaching_flag, x = ~avg.fscore, type="bar")
   
 plot2 <- shared_data |> 
-  plot_ly(x = ~Episode, y = ~F_count) |> 
+  plotly::plot_ly(x = ~Episode, y = ~F_count) |> 
   add_bars(type="bar") 
 
 ```
@@ -746,25 +798,44 @@ plot2 <- shared_data |>
 <br>
 
 ```{.r echo=TRUE}
-shared_data <- dataset |> 
-  SharedData$new(key=~Dating_Coaching_flag)
+shared_data <- crosstalk::SharedData$new(dataset, key=~Dating_Coaching_flag)
 
 plot1 <- shared_data |> 
-  plot_ly() |> 
+  plotly::plot_ly() |> 
   group_by(Dating_Coaching_flag) |> 
   summarise(avg.fscore = mean(F_score, na.rm=TRUE)) |> 
   add_bars(y = ~Dating_Coaching_flag, x = ~avg.fscore, type="bar")
   
 plot2 <- shared_data |> 
-  plot_ly(x = ~Episode, y = ~F_count) |> 
+  plotly::plot_ly(x = ~Episode, y = ~F_count) |> 
+  add_bars(type="bar") 
+
+subplot(p1,p2)
+```
+
+## Code structure for linking two plots
+
+<br>
+
+```{.r echo=TRUE}
+shared_data <- crosstalk::SharedData$new(dataset, key=~Dating_Coaching_flag)
+
+plot1 <- shared_data |> 
+  plotly::plot_ly() |> 
+  group_by(Dating_Coaching_flag) |> 
+  summarise(avg.fscore = mean(F_score, na.rm=TRUE)) |> 
+  add_bars(y = ~Dating_Coaching_flag, x = ~avg.fscore, type="bar")
+  
+plot2 <- shared_data |> 
+  plotly::plot_ly(x = ~Episode, y = ~F_count) |> 
   add_bars(type="bar") 
 
 subplot(p1,p2) |> 
-  highlight(persistent = TRUE
+  plotly::highlight(
+              persistent = TRUE
             , on = "plotly_click"
             , off = "plotly_doubleclick"
-            , dynamic = TRUE
-            ) 
+            , dynamic = TRUE) 
 ```
 
 
@@ -778,24 +849,33 @@ In other words, what not to do!!
 
 ## Disclaimer: Not recommended...
 
+<br>
+
+
 ```{r}
 shared_data <- df_xls |> 
+  mutate(Season = as.factor(Season)) |> 
   SharedData$new(key=~Season_Episode)
 
 p1 <- shared_data |> 
-  plot_ly(x = ~Episode_order, y = ~F_count_RK, text = ~Season_Episode, type="bar",
+  plot_ly(x = ~Episode_order, y = ~F_count_RK, text = ~Season_Episode, type="bar", color = ~Season,
+          colors = colors_richmond,
           width = 1200,
           height = 800) |> 
   add_bars(frame = ~Season)  |> 
-  layout(barmode = "overlay")
+  layout(barmode = "overlay",
+         xaxis = list(title = "", ticktext = list(), tickvals = list())) |>
+  add_text(y = -4, x = 17,  text = "F-bombs dropped by Roy Kent", textfont = list(size = 30, color = "gray60"))
 
 p2 <- shared_data |> 
-  plot_ly(x = ~Episode_order, y = ~F_perc, text = ~Season_Episode, type="bar",
+  plot_ly(x = ~Episode_order, y = ~F_perc, text = ~Season_Episode, type="bar", color = ~Season,
+          colors = colors_richmond,
           width = 1200,
           height = 800) |> 
-  add_bars(frame = ~Season) |> 
-  layout(barmode = "overlay")
-
+  add_bars(frame = ~Season)  |> 
+  layout(barmode = "overlay",
+         xaxis = list(title = "", ticktext = list(), tickvals = list())) |>
+  add_text(y = -4, x = 17,  text = "Roy Kent's F-score", textfont = list(size = 30, color = "gray60"))
 
 bscols(widths = c(NA,1,10),
        "",
@@ -824,19 +904,26 @@ bscols(widths = c(NA,1,10),
 :::
 
 
-## Animation and interactivity enables you to
+## Animation and interactivity enable you to
 
 <br>
 
+<br>
+
+
 ::: {.incremental}
 
-- Hold tension in your story
-- Give your stakeholders more control in engaging with your story
-- Add layers to your story so your stakeholders can arrive at their own insights
+1. Hold tension in your story
+2. Make it dynamic and easier to engage with your story
+3. Provide more control to engage with the data
+4. Add layers to your story and enable further insights
 
 :::
 
 <br>
+
+<br>
+
 
 ::: {.fragment}
 
@@ -857,7 +944,7 @@ bscols(widths = c(NA,1,10),
 ::: callout-note
 # Github repository for code
 
-[Slides and plots code](https://github.com/deepshamenghani/gganimate_and_plotly)
+[Slides, plots and data repo](https://github.com/deepshamenghani/posit_plotly_crosstalk)
 :::
 
 :::
@@ -867,27 +954,30 @@ bscols(widths = c(NA,1,10),
 ::: callout-tip
 # Plotly and Crosstalk
 
-[Plotly for R](https://github.com/deepshamenghani/gganimate_and_plotly) and [Crosstalk]()
+[Plotly for R](https://plotly.com/r/) and [Crosstalk](https://cran.r-project.org/web/packages/crosstalk/index.html)
 :::
 
 :::
 
 ::: {.fragment}
 
-::: callout-warning
-# Don't animate everything
+::: callout-note
+# Invitation to create an RData package
 
-[Plotly for R](https://github.com/deepshamenghani/gganimate_and_plotly) and [Crosstalk]()
+[F-bomb drops by Roy Kent dataset](https://github.com/deepshamenghani/posit_plotly_crosstalk/tree/main/data)
 :::
 
 :::
 
 ::: {.fragment}
 
-::: callout-important
-# Watch Ted Lasso
+::: callout-tip
+# Let's connect
 
-[Plotly for R](https://github.com/deepshamenghani/gganimate_and_plotly) and [Crosstalk]()
+[LinkedIn: @deepshamenghani](https://linkedin.com/in/deepshamenghani)
+
+[Threads: @IandLoveandData](https://www.threads.net/@iandloveanddata)
+
 :::
 
 :::
