@@ -927,7 +927,7 @@ bscols(widths = c(NA,1,10),
 
 ::: {.fragment}
 
-### ___And use it all wisely!___
+### ___And you can build these within your Quarto markdown reports and presentations!___
 
 :::
 
