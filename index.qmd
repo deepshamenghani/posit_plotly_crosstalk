@@ -606,7 +606,7 @@ df_xls |>
            customdata = ~paste0(F_perc),  
            hovertemplate = paste("<span style='font-size:18px;'>%{y}</span><br><br>",
                         "<span style='font-size:20px;'>%{customdata}</span><extra></extra>") ) |>
-  add_text(y = ~Dating_Coaching_flag, x = ~avg.fscore-0.04,  text = ~F_perc, textfont = list(size = 50, color = "#d3d3d3")) |>
+  add_text(y = ~Dating_Coaching_flag, x = ~avg.fscore-0.04,  text = ~F_perc, textfont = list(size = 50, color = "white")) |>
   layout(
     barmode = "overlay",
     yaxis = list(
@@ -673,7 +673,7 @@ p1 <- shared_data |>
            customdata = ~paste0(F_perc),  # Include the Episode variable in customdata
            hovertemplate = paste("<span style='font-size:18px;'>%{y}</span><br><br>",
                         "<span style='font-size:20px;'>%{customdata}</span><extra></extra>") ) |>
-  add_text(y = ~Dating_Coaching_flag, x = ~avg.fscore-0.06,  text = ~F_perc, textfont = list(size = 50, color = "#d3d3d3")) |>
+  add_text(y = ~Dating_Coaching_flag, x = ~avg.fscore-0.06,  text = ~F_perc, textfont = list(size = 50, color = "white")) |>
   layout(
     barmode = "overlay",
     yaxis = list(

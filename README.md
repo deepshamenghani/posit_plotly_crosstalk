@@ -58,3 +58,5 @@ The data is sourced from the Ted Lasso series and focuses on counting the number
 For any further queries, you can reach out to me [here](https://bit.ly/deepsha).
 
 ---
+
+![Ted Lasso](Images/rk_tl.jpg)
