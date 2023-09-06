@@ -938,7 +938,7 @@ bscols(widths = c(NA,1,10),
 <br>
 
 
-::: {.incremental}
+::: {incremental}
 
 1. Hold the tension in your story
 2. Add a third variable to your plot
