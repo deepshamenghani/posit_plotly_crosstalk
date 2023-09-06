@@ -76,7 +76,7 @@ df_xls <- readxl::read_xlsx("./data/Ted_Lasso_RK_f_count.xlsx") |>
 
 <br>
 
-- And have fun learning with me, Ted Lasso and Roy Kent!!
+- And have fun learning!!
 - How can you get started with it in your storytelling?
 - What is Data Viz animation, interactivity and linking?
 
@@ -117,7 +117,7 @@ For this presentation, I will share examples of -
 
 <br>
 
-![](Images/rk_tl.jpg){width="20%" fig-align="center"}
+![](Images/rk_tl.jpg){width="20%" fig-align="center" fig-alt="Ted Lasso left and Roy Kent on the right"}
 
 # Various moods of Roy Kent
 
@@ -127,49 +127,49 @@ For this presentation, I will share examples of -
 
 ::: {.fragment}
 
-![Happy](Images/rk_wtf.jpg)
+![Mad](Images/rk_wtf.jpg){fig-alt="Agitated Roy Kent saying what the f-ck"}
 :::
 
 ::: {.fragment}
 
-![Sad](Images/rk_wtf.jpg)
-
-:::
-
-::: {.fragment}
-
-
-![Mad](Images/rk_wtf.jpg)
-:::
-
-::: {.fragment}
-
-
-![Amused](Images/rk_wtf.jpg)
-:::
-
-::: {.fragment}
-
-![Loving](Images/rk_wtf.jpg)
+![Sad](Images/rk_wtf.jpg){fig-alt="Agitated Roy Kent saying what the f-ck"}
 
 :::
 
 ::: {.fragment}
 
 
-![Surprised](Images/rk_wtf.jpg)
+![Happy](Images/rk_wtf.jpg){fig-alt="Agitated Roy Kent saying what the f-ck"}
 :::
 
 ::: {.fragment}
 
 
-![Thoughtful](Images/rk_wtf.jpg)
+![Amused](Images/rk_wtf.jpg){fig-alt="Agitated Roy Kent saying what the f-ck"}
+:::
+
+::: {.fragment}
+
+![Loving](Images/rk_wtf.jpg){fig-alt="Agitated Roy Kent saying what the f-ck"}
+
 :::
 
 ::: {.fragment}
 
 
-![Joyous](Images/rk_wtf.jpg)
+![Surprised](Images/rk_wtf.jpg){fig-alt="Agitated Roy Kent saying what the f-ck"}
+:::
+
+::: {.fragment}
+
+
+![Thoughtful](Images/rk_wtf.jpg){fig-alt="Agitated Roy Kent saying what the f-ck"}
+:::
+
+::: {.fragment}
+
+
+![Joyous](Images/rk_wtf.jpg){fig-alt="Agitated Roy Kent saying what the f-ck"}
 :::
 
 :::
@@ -260,7 +260,17 @@ df_xls |>
 
 
 
-# By adding animation you can hold the tension in your story
+## By adding animation you can 
+
+<br>
+
+::: {.incremental}
+
+
+1. Hold the tension in your story
+2. Add a third variable to your plot not directly visible in a static 2D plot 
+
+:::
 
 ## Code structure for creating animation using Plotly
 
@@ -488,7 +498,16 @@ bscols(widths = c(NA,1,10),
 
 
 
-# Through interactivity you can make it dynamic and easier for your stakeholders to engage with your story
+## Through interactivity you can 
+
+<br>
+
+::: {.incremental}
+
+1. Turn your viz to a dashboard style report
+2. Make your viz more accessible 
+
+:::
 
 ## Code structure for adding interativity with Crosstalk
 
@@ -580,7 +599,7 @@ bscols(crosstalk::filter_checkbox(
 
 # Q3: Did Roy Kent have a lower average F-score while dating Keeley or while he was coaching?
 
-![](Images/keeley.gif){width="50%" fig-align="center"}
+![](Images/keeley.gif){width="50%" fig-align="center" fig-alt="Keeley winking at someone"}
 
 
 ## We can use a bar plot to display average F-Score
@@ -643,7 +662,7 @@ This is just fine... but as Roy Kent said -
 
 ::: {.fragment}
 
-![](Images/rk_dont_settle_for_fine2.gif){width="100%" fig-align="center"}
+![](Images/rk_dont_settle_for_fine2.gif){width="100%" fig-align="center" fig-alt="Roy Kent saying - Don't you dare settle for fine"}
 
 :::
 
@@ -743,7 +762,16 @@ subplot(p1,p2, nrows = 1, widths = c(0.45, 0.55), shareX = TRUE, shareY = FALSE)
 ```
 
 
-# Through linking you can add layers to the story and give your stakeholders more control so they can arrive at their own insights
+## Through linking you can 
+
+<br>
+
+::: {.incremental}
+
+1. Add layers to your story 
+2. Give your stakeholders more control to explore and arrive at their own insights
+
+:::
 
 ## Code structure for linking two plots
 
@@ -899,28 +927,28 @@ bscols(widths = c(NA,1,10),
 
 ::: {.fragment}
 
-![](Images/rk_please stop.gif){width="60%" fig-align="center"}
+![](Images/rk_please stop.gif){width="60%" fig-align="center" fig-alt="Roy Kent saying - Please stop"}
 
 :::
 
 
 ## Animation and interactivity enable you to
 
-<br>
 
 <br>
 
 
 ::: {.incremental}
 
-1. Hold tension in your story
-2. Make it dynamic and easier to engage with your story
-3. Provide more control to engage with the data
-4. Add layers to your story and enable further insights
+1. Hold the tension in your story
+2. Add a third variable to your plot
+3. Turn your viz to a dashboard style report
+4. Make your viz more accessible
+5. Add layers to your story
+6. Give your stakeholders more control to explore and arrive at insights
 
 :::
 
-<br>
 
 <br>
 
@@ -935,16 +963,14 @@ bscols(widths = c(NA,1,10),
 
 :::: columns
 
-::: {.column width="40%"}
-
-<br>
+::: {.column width="55%"}
 
 ::: {.fragment}
 
 ::: callout-note
 # Github repository for code
 
-[Slides, plots and data repo](https://github.com/deepshamenghani/posit_plotly_crosstalk)
+[Slides and plots repo](https://github.com/deepshamenghani/posit_plotly_crosstalk)
 :::
 
 :::
@@ -952,9 +978,10 @@ bscols(widths = c(NA,1,10),
 ::: {.fragment}
 
 ::: callout-tip
-# Plotly and Crosstalk
+# RData package: "richmondway"
 
-[Plotly for R](https://plotly.com/r/) and [Crosstalk](https://cran.r-project.org/web/packages/crosstalk/index.html)
+[devtools::install_github("deepshamenghani/richmondway")](https://github.com/deepshamenghani/richmondway)
+
 :::
 
 :::
@@ -962,9 +989,10 @@ bscols(widths = c(NA,1,10),
 ::: {.fragment}
 
 ::: callout-note
-# Invitation to create an RData package
+# Plotly and Crosstalk
 
-[F-bomb drops by Roy Kent dataset](https://github.com/deepshamenghani/posit_plotly_crosstalk/tree/main/data)
+[Plotly for R](https://plotly.com/r/) and [Crosstalk](https://cran.r-project.org/web/packages/crosstalk/index.html)
+
 :::
 
 :::
@@ -978,13 +1006,17 @@ bscols(widths = c(NA,1,10),
 
 [Threads: @IandLoveandData](https://www.threads.net/@iandloveanddata)
 
-:::
+[Mastodon: @IandLoveandData](https://fosstodon.org/@deepsha)
 
 :::
 
 :::
 
-::: {.column width="60%"}
+:::
+
+::: {.column width="45%"}
+
+<br>
 
 <br>
 
@@ -993,7 +1025,7 @@ bscols(widths = c(NA,1,10),
 
 ::: {.fragment}
 
-![](Images/ted-lasso-believe.gif){width="80%" fig-align="center"}
+![](Images/ted-lasso-believe.gif){width="100%" fig-align="center"  fig-alt="Ted Lasso pointing to a sign that says - Believe"}
 :::
 
 :::
