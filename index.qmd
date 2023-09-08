@@ -48,10 +48,8 @@ df_xls <- readxl::read_xlsx("./data/Ted_Lasso_RK_f_count.xlsx") |>
 
 <br>
 
-<br>
 
-
-- What is Data Viz animation, interactivity and linking?
+#### - What is Data Viz animation, interactivity and linking?
 
 ## {auto-animate=true}
 
@@ -61,10 +59,8 @@ df_xls <- readxl::read_xlsx("./data/Ted_Lasso_RK_f_count.xlsx") |>
 
 <br>
 
-<br>
-
-- How can you get started with it in your storytelling?
-- What is Data Viz animation, interactivity and linking?
+#### - How can you get started with it in your storytelling?
+#### - What is Data Viz animation, interactivity and linking?
 
 ## {auto-animate=true}
 
@@ -74,11 +70,9 @@ df_xls <- readxl::read_xlsx("./data/Ted_Lasso_RK_f_count.xlsx") |>
 
 <br>
 
-<br>
-
-- And have fun learning!!
-- How can you get started with it in your storytelling?
-- What is Data Viz animation, interactivity and linking?
+#### - And have fun learning!!
+#### - How can you get started with it in your storytelling?
+#### - What is Data Viz animation, interactivity and linking?
 
 
 ## {auto-animate=true}
@@ -89,18 +83,39 @@ There are lots of amazing packages for animation and interactivity like...
 
 <br>
 
+
+:::: columns
+
 ::: {.fragment}
 
-- Shiny
-- Highcharter
-- Ggiraph
-- Gganimate
-- Observablejs Plot
-- Plotly
-- Crosstalk
-- And many more...
+::: {.column width="50%"}
+
+
+
+#### Shiny
+#### Highcharter
+#### Plotly
+#### Crosstalk
+
 
 :::
+
+
+
+::: {.column width="50%"}
+
+
+#### Observablejs Plot
+#### Ggiraph
+#### Gganimate
+#### And many more...
+
+
+:::
+
+:::
+
+::::
 
 ## {auto-animate=true}
 
@@ -110,8 +125,22 @@ For this presentation, I will share examples of -
 
 <br>
 
-- __Plotly__
-- __Crosstalk__
+:::: columns
+
+
+::: {.column width="50%"}
+
+#### Plotly
+#### Crosstalk
+
+:::
+
+::: {.column width="50%"}
+
+:::
+
+
+::::
 
 # But first.. What is Ted Lasso and who is Roy Kent?
 
@@ -119,7 +148,7 @@ For this presentation, I will share examples of -
 
 ![](Images/rk_tl.jpg){width="20%" fig-align="center" fig-alt="Ted Lasso left and Roy Kent on the right"}
 
-# Various moods of Roy Kent
+## Various moods of Roy Kent
 
 <br>
 
@@ -127,49 +156,75 @@ For this presentation, I will share examples of -
 
 ::: {.fragment}
 
-![Mad](Images/rk_wtf.jpg){fig-alt="Agitated Roy Kent saying what the f-ck"}
-:::
 
-::: {.fragment}
+![](Images/rk_wtf.jpg){fig-alt="Agitated Roy Kent saying what the f-ck"}
 
-![Sad](Images/rk_wtf.jpg){fig-alt="Agitated Roy Kent saying what the f-ck"}
+#### Mad
 
 :::
 
 ::: {.fragment}
 
 
-![Happy](Images/rk_wtf.jpg){fig-alt="Agitated Roy Kent saying what the f-ck"}
-:::
+![](Images/rk_wtf.jpg){fig-alt="Agitated Roy Kent saying what the f-ck"}
 
-::: {.fragment}
-
-
-![Amused](Images/rk_wtf.jpg){fig-alt="Agitated Roy Kent saying what the f-ck"}
-:::
-
-::: {.fragment}
-
-![Loving](Images/rk_wtf.jpg){fig-alt="Agitated Roy Kent saying what the f-ck"}
+#### Sad 
 
 :::
 
 ::: {.fragment}
 
 
-![Surprised](Images/rk_wtf.jpg){fig-alt="Agitated Roy Kent saying what the f-ck"}
+
+![](Images/rk_wtf.jpg){fig-alt="Agitated Roy Kent saying what the f-ck"}
+
+#### Happy
+
 :::
 
 ::: {.fragment}
 
 
-![Thoughtful](Images/rk_wtf.jpg){fig-alt="Agitated Roy Kent saying what the f-ck"}
+![](Images/rk_wtf.jpg){fig-alt="Agitated Roy Kent saying what the f-ck"}
+
+#### Amused
+
+:::
+
+::: {.fragment}
+
+![](Images/rk_wtf.jpg){fig-alt="Agitated Roy Kent saying what the f-ck"}
+
+#### Loving
+
+
 :::
 
 ::: {.fragment}
 
 
-![Joyous](Images/rk_wtf.jpg){fig-alt="Agitated Roy Kent saying what the f-ck"}
+![](Images/rk_wtf.jpg){fig-alt="Agitated Roy Kent saying what the f-ck"}
+
+#### Surprised
+
+:::
+
+::: {.fragment}
+
+
+![](Images/rk_wtf.jpg){fig-alt="Agitated Roy Kent saying what the f-ck"}
+
+#### Thoughtful
+
+:::
+
+::: {.fragment}
+
+
+![](Images/rk_wtf.jpg){fig-alt="Agitated Roy Kent saying what the f-ck"}
+
+#### Joyous
+
 :::
 
 :::
@@ -198,8 +253,6 @@ ___FOR SCIENCE!!___
 :::
 
 # Animation {background-color="#001E4E"}
-
-# Let's start with a question...
 
 ## Q1: What season did Roy Kent end up dropping the most number of F-bombs?
 
@@ -932,32 +985,72 @@ bscols(widths = c(NA,1,10),
 :::
 
 
-## Animation and interactivity enable you to
 
+## Right within Quarto, animation and interactivity enable you to
 
 <br>
 
 
-::: {incremental}
+::: {layout="[[1,1,1], [1,1,1]]"}
 
-1. Hold the tension in your story
-2. Add a third variable to your plot
-3. Turn your viz to a dashboard style report
-4. Make your viz more accessible
-5. Add layers to your story
-6. Give your stakeholders more control to explore and arrive at insights
+::: {.fragment}
+
+
+![](Images/tensed4.png){width="20%" fig-alt="Agitated Roy Kent saying what the f-ck"}
 
 :::
-
-
-<br>
 
 
 ::: {.fragment}
 
-### ___And you can build these within your Quarto markdown reports and presentations!___
+
+
+![](Images/addingsb2.png){width="20%" fig-alt="Agitated Roy Kent saying what the f-ck"}
+
 
 :::
+
+::: {.fragment}
+
+
+![](Images/dashboard2.png){width="20%" fig-alt="Agitated Roy Kent saying what the f-ck"}
+
+:::
+
+
+:::
+
+
+
+## Right within Quarto, animation and interactivity enable you to
+
+<br>
+
+
+::: {layout="[[1,1,1], [1,1,1]]"}
+
+
+![](Images/kidreaching3.png){width="20%" fig-alt="Agitated Roy Kent saying what the f-ck"}
+
+
+::: {.fragment}
+
+
+![](Images/legoadd.png){width="20%" fig-alt="Agitated Roy Kent saying what the f-ck"}
+
+:::
+
+::: {.fragment}
+
+
+![](Images/driving3.png){width="20%" fig-alt="Agitated Roy Kent saying what the f-ck"}
+
+
+:::
+
+:::
+
+
 
 ## Next steps
 
