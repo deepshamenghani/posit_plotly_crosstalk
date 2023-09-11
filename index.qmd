@@ -493,7 +493,7 @@ bscols(widths = c(NA,10),"",p1)
 
 
 
-## Or we can add a "season" checkbox to make it easier to read
+## Or we can add a "season" checkbox
 
 <br>
 
@@ -894,7 +894,7 @@ plot2 <- shared_data |>
   plotly::plot_ly(x = ~Episode, y = ~F_count) |> 
   add_bars(type="bar") 
 
-subplot(p1,p2)
+subplot(plot1,plot2)
 ```
 
 ## Code structure for linking two plots
@@ -914,7 +914,7 @@ plot2 <- shared_data |>
   plotly::plot_ly(x = ~Episode, y = ~F_count) |> 
   add_bars(type="bar") 
 
-subplot(p1,p2) |> 
+subplot(plot1,plot2) |> 
   plotly::highlight(
               persistent = TRUE
             , on = "plotly_click"
@@ -1080,33 +1080,62 @@ bscols(widths = c(NA,1,10),
 
 :::
 
+
+
 :::
+
+
 
 ::: {.fragment}
 
-::: callout-note
-# Plotly and Crosstalk
+![](Images/richmondwayhex.png){width="40%" fig-align="center"}
 
-[Plotly for R](https://plotly.com/r/) and [Crosstalk](https://cran.r-project.org/web/packages/crosstalk/index.html)
 
-:::
 
 :::
 
-::: {.fragment}
 
-::: callout-tip
-# Let's connect
-
-[LinkedIn: @deepshamenghani](https://linkedin.com/in/deepshamenghani)
-
-[Threads: @IandLoveandData](https://www.threads.net/@iandloveanddata)
-
-[Mastodon: @IandLoveandData](https://fosstodon.org/@deepsha)
 
 :::
 
+::: {.column width="45%"}
+
+
+
+
 :::
+
+::::
+
+
+
+## Let's connect
+
+:::: columns
+
+::: {.column width="55%"}
+
+
+
+
+<br>
+
+
+<br>
+
+<br>
+
+<br>
+
+
+
+### [LinkedIn: @deepshamenghani](https://linkedin.com/in/deepshamenghani)
+
+### [Threads: @IandLoveandData](https://www.threads.net/@iandloveanddata)
+
+### [Mastodon: @IandLoveandData](https://fosstodon.org/@deepsha)
+
+
 
 :::
 
@@ -1114,7 +1143,6 @@ bscols(widths = c(NA,1,10),
 
 <br>
 
-<br>
 
 <br>
 
