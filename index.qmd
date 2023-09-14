@@ -88,7 +88,7 @@ There are lots of amazing packages for animation and interactivity like...
 
 ::: {.fragment}
 
-::: {.column width="50%"}
+::: {.column width="40%"}
 
 
 
@@ -440,7 +440,6 @@ And...which season had the highest number of such episodes?
 
 ## We can display F-score for each episode as below
 
-<br>
 
 ::: {.fragment}
 
@@ -494,9 +493,6 @@ bscols(widths = c(NA,10),"",p1)
 
 
 ## Or we can add a "season" checkbox
-
-<br>
-
 
 ```{r}
 shared_data <- df_xls |> crosstalk::SharedData$new()
@@ -932,8 +928,6 @@ In other words, what not to do!!
 :::
 
 ## Disclaimer: Not recommended...
-
-<br>
 
 
 ```{r}
