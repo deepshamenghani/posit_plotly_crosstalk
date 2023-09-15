@@ -33,7 +33,10 @@ This repository houses the slides and code for a presentation titled "Data Viz A
 
 The data is sourced from the Ted Lasso series and focuses on counting the number of F-bombs Roy Kent drops. Each episode was watched at 2X speed by Deepsha Menghani to compile this dataset. 
 
-- Data File: `Ted_Lasso_RK_f_count.xlsx`
+- You can access the data using "Richmondway" package with the below command:
+  devtools::install_github("deepshamenghani/richmondway")
+
+You can learn more about the dataset at [github [ackage repo](https://github.com/deepshamenghani/richmondway)
 
 ---
 
