@@ -36,7 +36,7 @@ The data is sourced from the Ted Lasso series and focuses on counting the number
 - You can access the data using "Richmondway" package with the below command:
   devtools::install_github("deepshamenghani/richmondway")
 
-You can learn more about the dataset at [github [ackage repo](https://github.com/deepshamenghani/richmondway)
+You can learn more about the detials of the dataset at [github repo](https://github.com/deepshamenghani/richmondway)
 
 ---
 
