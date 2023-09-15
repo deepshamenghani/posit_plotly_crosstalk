@@ -414,18 +414,6 @@ $$
 
 ::: {.fragment}
 
-In non-statistical terms - In how many episodes per season did Roy Kent contribute to more than half the F-bombs? 
-
-<br>
-
-And...which season had the highest number of such episodes?
-
-:::
-
-<br>
-
-::: {.fragment}
-
 ### Can you guess the answer?
 
 - Season 1 - Total F-bombs: __56__
