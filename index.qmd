@@ -525,13 +525,16 @@ plot2 <- shared_data |>
   config(displayModeBar = FALSE) |> 
   hide_legend()
 
-bscols(widths = c(NA,1,10),
-       " ",
-       crosstalk::filter_checkbox(
+checkbox_season <- crosstalk::filter_checkbox(
         id = "Season", label = "Season", 
         sharedData = shared_data,
         group = ~Season
-), plot2)
+)
+
+bscols(widths = c(NA,1,10),
+       " ",
+    checkbox_season   
+, plot2)
 
 ```
 
@@ -563,7 +566,10 @@ dataset |>
 
 <br>
 
-::: {.fragment}
+## Code structure for adding interativity with Crosstalk
+
+
+<br>
 
 ### Bar plot with interativity 
 
@@ -572,19 +578,9 @@ dataset |>
 shared_data <- crosstalk::SharedData$new(dataset)
 ```
 
-:::
 
 ## Code structure for adding interativity with Crosstalk
 
-<br>
-
-### Simple bar plot
-
-```{.r echo=TRUE}
-dataset |> 
-  plotly::plot_ly(y=~F_score, x = ~episode) |> 
-  add_bars(type="bar")
-```
 
 <br>
 
@@ -603,15 +599,6 @@ plot <- shared_data |>
 
 ## Code structure for adding interativity with Crosstalk
 
-<br>
-
-### Simple bar plot
-
-```{.r echo=TRUE}
-dataset |> 
-  plotly::plot_ly(y=~F_score, x = ~episode) |> 
-  add_bars(type="bar")
-```
 
 <br>
 
@@ -626,13 +613,38 @@ plot <- shared_data |>
   plotly::plot_ly(y=~F_score, x = ~episode) |> 
   add_bars(type="bar")
 
-bscols(crosstalk::filter_checkbox(
-          id = "Season", 
-          label = "Season", 
-          sharedData = shared_data,  
-          group = ~Season
-      ), 
-      plot)
+checkbox_season <- crosstalk::filter_checkbox(
+        id = "Season", 
+        label = "Season", 
+        sharedData = shared_data,
+        group = ~Season
+)
+```
+
+## Code structure for adding interativity with Crosstalk
+
+
+<br>
+
+
+### Bar plot with interativity 
+
+
+```{.r echo=TRUE}
+shared_data <- crosstalk::SharedData$new(dataset)
+
+plot <- shared_data |> 
+  plotly::plot_ly(y=~F_score, x = ~episode) |> 
+  add_bars(type="bar")
+  
+checkbox_season <- crosstalk::filter_checkbox(
+        id = "Season", 
+        label = "Season", 
+        sharedData = shared_data,
+        group = ~Season
+)
+
+bscols(checkbox_season, plot)
 ```
 
 # Linking {background-color="#001E4E"}
@@ -1037,11 +1049,11 @@ bscols(widths = c(NA,1,10),
 
 
 
-## Next steps
+## Resources
 
 :::: columns
 
-::: {.column width="55%"}
+::: {.column width="51%"}
 
 ::: {.fragment}
 
@@ -1080,60 +1092,31 @@ bscols(widths = c(NA,1,10),
 
 :::
 
-::: {.column width="45%"}
-
-
+::: {.column width="4%"}
 
 
 :::
 
-::::
 
+::: {.column width="45%"}
 
+::: {.fragment}
 
-## Let's connect
-
-:::: columns
-
-::: {.column width="55%"}
-
-
-
-
-<br>
-
-
-<br>
-
-<br>
-
-<br>
-
-
+<br> 
 
 ### [LinkedIn: @deepshamenghani](https://linkedin.com/in/deepshamenghani)
 
 ### [Threads: @IandLoveandData](https://www.threads.net/@iandloveanddata)
 
-### [Mastodon: @IandLoveandData](https://fosstodon.org/@deepsha)
-
-
-
-:::
-
-::: {.column width="45%"}
+### [Mastodon: @deepsha](https://fosstodon.org/@deepsha)
 
 <br>
 
+![](Images/ted-lasso-believe.gif){width="80%" fig-align="center"  fig-alt="Ted Lasso pointing to a sign that says - Believe"}
 
-<br>
-
-
-::: {.fragment}
-
-![](Images/ted-lasso-believe.gif){width="100%" fig-align="center"  fig-alt="Ted Lasso pointing to a sign that says - Believe"}
 :::
 
 :::
 
 ::::
+
