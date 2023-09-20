@@ -1072,21 +1072,21 @@ bscols(widths = c(NA,1,10),
 
 [devtools::install_github("deepshamenghani/richmondway")](https://github.com/deepshamenghani/richmondway)
 
-:::
-
-
-
-:::
-
-
-
-::: {.fragment}
-
 ![](Images/richmondwayhex.png){width="40%" fig-align="center"}
 
 
+:::
+
+
 
 :::
+
+
+
+
+
+
+
 
 
 
